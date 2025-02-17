@@ -1939,8 +1939,7 @@ var Incremancer;
                     return void (this.gameModel.brainsMax *= Math.pow(1 + e.effect, t)),
                                 (this.gameModel.CyroVatPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.PlagueVatPC:
-                    return void (this.gameModel.plagueDamageMod *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.PlagueVatPCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.PlagueVatPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.CloningRep1PC:
                     return void (this.gameModel.brainsPCMod *= Math.pow(1 + e.effect, t)),
                                 (this.gameModel.CloningRep1PCMod *= Math.pow(1 + e.effect, t));     
@@ -3287,7 +3286,7 @@ var Incremancer;
             return this.model.runeEffects.critChance > 0 && Math.random() < this.model.runeEffects.critChance && (t *= this.model.runeEffects.critDamage, He(e.x, e.y - 20, t)), this.bloodpact > 0 && this.model.addBlood(t * this.bloodpact), t
         }
         inflictPlague(e) {
-            e.flags.infected ? (e.plagueDamage += (this.model.zombieDamage / 2 + this.model.plagueDamageMod) * this.model.PlagueVatPCMod, e.plagueTicks = this.model.plagueticks) : (this.exclamations.newPoison(e), e.plagueDamage = (this.model.zombieDamage / 2 + this.model.plagueDamageMod) * this.model.PlagueVatPCMod, e.plagueTicks = this.model.plagueticks), e.flags.infected = !0
+            e.flags.infected ? (e.plagueDamage += this.model.zombieDamage * this.model.PlagueVatPCMod / 2 + this.model.plagueDamageMod, e.plagueTicks = this.model.plagueticks) : (this.exclamations.newPoison(e), e.plagueDamage = this.model.zombieDamage * this.model.PlagueVatPCMod / 2 + this.model.plagueDamageMod, e.plagueTicks = this.model.plagueticks), e.flags.infected = !0
         }
         updateBurns(e, t) {
             e.timer.burnTick -= t, e.timer.smoke -= t, e.timer.smoke < 0 && (this.smoke.newFireSmoke(e.x, e.y - 14), e.timer.smoke = this.smokeTimer), e.timer.burnTick < 0 && (this.damageZombie(e, e.burnDamage, null), e.timer.burnTick = this.burnTickTimer, this.exclamations.newFire(e))
