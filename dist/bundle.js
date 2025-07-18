@@ -221,11 +221,13 @@ var Incremancer;
         a: !1,
         s: !1,
         d: !1,
-        shift: !1
+        shift: !1,
+        canType: !1
     };
     window.onblur = function () {
         Y.w = Y.a = Y.s = Y.d = !1, Y.shift = !1
     }, window.onkeydown = function (e) {
+        if (Y.canType) return !0;
         switch (e.keyCode) {
             case 16:
             case 17:
@@ -252,6 +254,7 @@ var Incremancer;
         }
         return !1
     }, window.onkeyup = function (e) {
+        if (Y.canType) return !0;
         switch (e.keyCode) {
             case 16:
             case 17:
@@ -285,38 +288,38 @@ var Incremancer;
     }
     class q {
         constructor() {
-            if (this.cooldownReduction = 0, this.timeExtension = 0, this.costReduction = 0, this.skeleton = new Xe, this.zombies = new Ae, this.humans = new Se, this.spellMap = new Map, this.spells = [new W(1, "Time Warp", "Speed up the flow of time for 30 seconds", "", 90, 30, 0, 
+            if (this.cooldownReduction = 0, this.timeExtension = 0, this.costReduction = 0, this.skeleton = new Xe, this.zombies = new Ae, this.humans = new Se, this.spellMap = new Map, this.spells = [new W(1, "Time Warp", "Speed up the flow of time for 30 seconds", "", 90, 30, 0,
                 (function () {
-                ne.getInstance().gameSpeed = 2
-            }), (function () {
-                ne.getInstance().gameSpeed = 1
-            })), new W(2, "Energy Charge", "5x Energy rate for 20 seconds, cost 50 energy", "", 160, 20, 50, (function () {
-                ne.getInstance().energySpellMultiplier = 5
-            }), (function () {
-                ne.getInstance().energySpellMultiplier = 1
-            })), new W(3, "Detonate", "Turns your zombies into fast moving living bombs, cost 69 energy... nice", "", 80, 8, 69, (function () {
-                (new q).zombies.detonate = !0
-            }), (function () {
-                (new q).zombies.detonate = !1
-            })), new W(4, "Earth Freeze", "Freeze all humans in place preventing them from moving for 15 seconds, cost 75 energy", "", 50, 15, 75, (function () {
-                (new q).humans.frozen = !0
-            }), (function () {
-                (new q).humans.frozen = !1
-            })), new W(5, "Gigazombies", "For 5 seconds any zombies spawned will be giants with 10x health and attack damage, cost 100 energy", "", 260, 5, 100, (function () {
-                (new q).zombies.super = !0
-            }), (function () {
-                (new q).zombies.super = !1
-            })), new W(6, "Incinerate", "Burns humans near the skeleton champion", "Has a chance to cast Incinerate when attacking, burning all humans within a large radius of the Skeleton", 1, 10, 10, (function () {
-                (new q).skeleton.incinerate(), this.timer = 1
-            }), (function () { })), new W(7, "Pandemic", "Causes plague to spread", "Has a chance to cast Pandemic when attacking, causing infected humans to spread the plague to each other for 20 seconds", 10, 20, 10, (function () {
-                (new q).humans.pandemic = !0
-            }), (function () {
-                (new q).humans.pandemic = !1
-            })), new W(8, "Part Storm", "Doubles parts", "Has a chance to cast Part Storm when attacking, doubling the parts production of your factory machines for 15 seconds", 10, 15, 10, (function () {
-                (new se).storm = !0
-            }), (function () {
-                (new se).storm = !1
-            }))], q.instance) return q.instance;
+                    ne.getInstance().gameSpeed = 2
+                }), (function () {
+                    ne.getInstance().gameSpeed = 1
+                })), new W(2, "Energy Charge", "5x Energy rate for 20 seconds, cost 50 energy", "", 160, 20, 50, (function () {
+                    ne.getInstance().energySpellMultiplier = 5
+                }), (function () {
+                    ne.getInstance().energySpellMultiplier = 1
+                })), new W(3, "Detonate", "Turns your zombies into fast moving living bombs, cost 69 energy... nice", "", 80, 8, 69, (function () {
+                    (new q).zombies.detonate = !0
+                }), (function () {
+                    (new q).zombies.detonate = !1
+                })), new W(4, "Earth Freeze", "Freeze all humans in place preventing them from moving for 15 seconds, cost 75 energy", "", 50, 15, 75, (function () {
+                    (new q).humans.frozen = !0
+                }), (function () {
+                    (new q).humans.frozen = !1
+                })), new W(5, "Gigazombies", "For 5 seconds any zombies spawned will be giants with 10x health and attack damage, cost 100 energy", "", 260, 5, 100, (function () {
+                    (new q).zombies.super = !0
+                }), (function () {
+                    (new q).zombies.super = !1
+                })), new W(6, "Incinerate", "Burns humans near the skeleton champion", "Has a chance to cast Incinerate when attacking, burning all humans within a large radius of the Skeleton", 1, 10, 10, (function () {
+                    (new q).skeleton.incinerate(), this.timer = 1
+                }), (function () { })), new W(7, "Pandemic", "Causes plague to spread", "Has a chance to cast Pandemic when attacking, causing infected humans to spread the plague to each other for 20 seconds", 10, 20, 10, (function () {
+                    (new q).humans.pandemic = !0
+                }), (function () {
+                    (new q).humans.pandemic = !1
+                })), new W(8, "Part Storm", "Doubles parts", "Has a chance to cast Part Storm when attacking, doubling the parts production of your factory machines for 15 seconds", 10, 15, 10, (function () {
+                    (new se).storm = !0
+                }), (function () {
+                    (new se).storm = !1
+                }))], q.instance) return q.instance;
             q.instance = this, this.spells.forEach((e => this.spellMap.set(e.id, e)))
         }
         lockAllSpells() {
@@ -983,224 +986,224 @@ var Incremancer;
     }
     class ne {
         constructor() {
-            this.storageName = "ZombieData", 
-                this.kongregate = null, 
-                this.playFabId = null, 
-                this.titleId = "772D8", 
-                this.hidden = !1, 
-                this.autoShatter = !1, 
-                this.energy = 0, 
-                this.energyMax = 10, 
-                this.energyRate = 1, 
-                this.brainsRate = 0, 
-                this.bonesRate = 0, 
-                this.endLevelBones = 0, 
-                this.energySpellMultiplier = 1, 
-                this.prestigePointsEarned = 0, 
-                this.zombieCost = 10, 
-                this.bonesPCMod = 1, 
-                this.partsPCMod = 1, 
-                this.bloodMax = 1e3, 
-                this.bloodPCMod = 1, 
-                this.bloodStorePCMod = 1, 
-                this.brainsMax = 50, 
-                this.brainsPCMod = 1, 
-                this.brainsStorePCMod = 1, 
-                this.zombieHealth = 100, 
-                this.zombieHealthPCMod = 1, 
-                this.HshellHealthPCMod = 1, 
-                this.CyroVatPCMod = 1, 
-                this.PlagueVatPCMod = 1, 
-                this.CloningRep1PCMod = 1, 
-                this.BloodSynPCMod = 1, 
-                this.SynBonePCMod = 1, 
-                this.SmolPartsPCMod = 1, 
-                this.AvionicsPCMod = 1, 
-                this.ShockPCMod = 1, 
-                this.EnergyCostMod = 0,                 
-                this.zombieDamage = 10, 
-                this.zombieDamagePCMod = 1, 
-                this.HstrengthDmgPCMod = 1, 
-                this.zombieSpeed = 10, 
-                this.zombieCages = 0, 
-                this.zombiesInCages = 0, 
-                this.golemDamagePCMod = 1, 
-                this.golemHealthPCMod = 1, 
-                this.plagueDamageMod = 0, 
-                this.plagueticks = 2, 
-                this.graveyardHealthMod = 1, 
-                this.burningSpeedMod = 1, 
-                this.startingResources = 0, 
-                this.blastHealing = 0, 
-                this.plagueDmgReduction = 0, 
-                this.brainRecoverChance = 0, 
-                this.riseFromTheDeadChance = 0, 
-                this.infectedBiteChance = 0, 
-                this.infectedBlastChance = 0, 
-                this.spitDistance = 0, 
-                this.spikeDelay = 5, 
-                this.startTimer = 0, 
-                this.fenceRadius = 50, 
-                this.constructions = {}, 
-                this.construction = 0, 
-                this.boneCollectorCapacity = 10, 
-                this.frameRate = 0, 
-                this.humanCount = 50, 
-                this.zombieCount = 0, 
-                this.creatureCount = 0, 
-                this.creatureLimit = 1, 
-                this.harpySpeed = 75, 
-                this.tankBuster = !1, 
-                this.harpyBombs = 1, 
-                this.stats = null, 
+            this.storageName = "ZombieData",
+                this.kongregate = null,
+                this.playFabId = null,
+                this.titleId = "772D8",
+                this.hidden = !1,
+                this.autoShatter = !1,
+                this.energy = 0,
+                this.energyMax = 10,
+                this.energyRate = 1,
+                this.brainsRate = 0,
+                this.bonesRate = 0,
+                this.endLevelBones = 0,
+                this.energySpellMultiplier = 1,
+                this.prestigePointsEarned = 0,
+                this.zombieCost = 10,
+                this.bonesPCMod = 1,
+                this.partsPCMod = 1,
+                this.bloodMax = 1e3,
+                this.bloodPCMod = 1,
+                this.bloodStorePCMod = 1,
+                this.brainsMax = 50,
+                this.brainsPCMod = 1,
+                this.brainsStorePCMod = 1,
+                this.zombieHealth = 100,
+                this.zombieHealthPCMod = 1,
+                this.HshellHealthPCMod = 1,
+                this.CyroVatPCMod = 1,
+                this.PlagueVatPCMod = 1,
+                this.CloningRep1PCMod = 1,
+                this.BloodSynPCMod = 1,
+                this.SynBonePCMod = 1,
+                this.SmolPartsPCMod = 1,
+                this.AvionicsPCMod = 1,
+                this.ShockPCMod = 1,
+                this.EnergyCostMod = 0,
+                this.zombieDamage = 10,
+                this.zombieDamagePCMod = 1,
+                this.HstrengthDmgPCMod = 1,
+                this.zombieSpeed = 10,
+                this.zombieCages = 0,
+                this.zombiesInCages = 0,
+                this.golemDamagePCMod = 1,
+                this.golemHealthPCMod = 1,
+                this.plagueDamageMod = 0,
+                this.plagueticks = 2,
+                this.graveyardHealthMod = 1,
+                this.burningSpeedMod = 1,
+                this.startingResources = 0,
+                this.blastHealing = 0,
+                this.plagueDmgReduction = 0,
+                this.brainRecoverChance = 0,
+                this.riseFromTheDeadChance = 0,
+                this.infectedBiteChance = 0,
+                this.infectedBlastChance = 0,
+                this.spitDistance = 0,
+                this.spikeDelay = 5,
+                this.startTimer = 0,
+                this.fenceRadius = 50,
+                this.constructions = {},
+                this.construction = 0,
+                this.boneCollectorCapacity = 10,
+                this.frameRate = 0,
+                this.humanCount = 50,
+                this.zombieCount = 0,
+                this.creatureCount = 0,
+                this.creatureLimit = 1,
+                this.harpySpeed = 75,
+                this.tankBuster = !1,
+                this.harpyBombs = 1,
+                this.stats = null,
                 this.runicSyphon = {
-                percentage: 0,
-                blood: 0,
-                bones: 0,
-                brains: 0
-            }, this.gigazombies = !1, this.endLevelTimer = (3), this.endLevelDelay = (3), this.messageQueue = [], this.offlineMessage = "", this.runeEffects = {
-                attackSpeed: 1,
-                critChance: 0,
-                critDamage: 0,
-                damageReduction: 1,
-                healthRegen: 0,
-                damageReflection: 0
-            }, this.encodedContent = "", this.savefilename = "", this.autoUpgrades = !1, this.autoconstruction = !1, this.autoconstructionUnlocked = !1, this.levelResourcesAdded = !1, this.bulletproofChance = 0, this.gameSpeed = 1, this.level = 1, this.currentState = "startGame", this.states = {
-                playingLevel: "playingLevel",
-                levelCompleted: "levelCompleted",
-                startGame: "startGame",
-                prestiged: "prestiged",
-                failed: "failed"
-            }, this.baseStats = {
-                energyRate: 1,
-                brainsRate: 0,
-                bonesRate: 0,
-                energyMax: 10,
-                bloodMax: 1e3,
-                brainsMax: 50,
-                zombieCost: 10,
-                zombieHealth: 100,
-                zombieDamage: 10,
-                zombieSpeed: 10,
-                level: 1,
-                graveyard: 0,
-                construction: 0,
-                boneCollectorCapacity: 10
-            }, this.zoom = A, this.centerGameContainer = Z, this.lastSave = 0, this.lastPlayFabSave = Date.now() - 15e3, this.persistentData = {
-                saveCreated: Date.now(),
-                dateOfSave: Date.now(),
-                autoStart: !1,
-                autoStartWait: !0,
-                autoSellGear: !1,
-                autoSellGearLegendary: !1,
-                levelUnlocked: 1,
-                allTimeHighestLevel: 0,
-                blood: 0,
-                brains: 0,
-                bones: 0,
-                parts: 0,
-                bonesTotal: 0,
-                upgrades: [],
-                constructions: [],
-                prestigePointsEarned: 0,
-                prestigePointsToSpend: 0,
-                boneCollectors: 0,
-                graveyardZombies: 1,
-                harpies: 0,
-                resolution: 1,
-                zoomButtons: !1,
-                particles: !0,
-                generators: [],
-                currentConstruction: null,
-                creatureLevels: [],
-                creatures: [],
-                creatureAutobuild: [],
-                savedCreatures: [],
-                levelsCompleted: [],
-                showfps: !1,
-                runeshatter: 0,
-                runes: {
-                    life: {
-                        blood: 0,
-                        brains: 0,
-                        bones: 0
+                    percentage: 0,
+                    blood: 0,
+                    bones: 0,
+                    brains: 0
+                }, this.gigazombies = !1, this.endLevelTimer = (3), this.endLevelDelay = (3), this.messageQueue = [], this.offlineMessage = "", this.runeEffects = {
+                    attackSpeed: 1,
+                    critChance: 0,
+                    critDamage: 0,
+                    damageReduction: 1,
+                    healthRegen: 0,
+                    damageReflection: 0
+                }, this.encodedContent = "", this.savefilename = "", this.autoUpgrades = !1, this.autoconstruction = !1, this.autoconstructionUnlocked = !1, this.levelResourcesAdded = !1, this.bulletproofChance = 0, this.gameSpeed = 1, this.level = 1, this.currentState = "startGame", this.states = {
+                    playingLevel: "playingLevel",
+                    levelCompleted: "levelCompleted",
+                    startGame: "startGame",
+                    prestiged: "prestiged",
+                    failed: "failed"
+                }, this.baseStats = {
+                    energyRate: 1,
+                    brainsRate: 0,
+                    bonesRate: 0,
+                    energyMax: 10,
+                    bloodMax: 1e3,
+                    brainsMax: 50,
+                    zombieCost: 10,
+                    zombieHealth: 100,
+                    zombieDamage: 10,
+                    zombieSpeed: 10,
+                    level: 1,
+                    graveyard: 0,
+                    construction: 0,
+                    boneCollectorCapacity: 10
+                }, this.zoom = A, this.centerGameContainer = Z, this.lastSave = 0, this.lastPlayFabSave = Date.now() - 15e3, this.persistentData = {
+                    saveCreated: Date.now(),
+                    dateOfSave: Date.now(),
+                    autoStart: !1,
+                    autoStartWait: !0,
+                    autoSellGear: !1,
+                    autoSellGearLegendary: !1,
+                    levelUnlocked: 1,
+                    allTimeHighestLevel: 0,
+                    blood: 0,
+                    brains: 0,
+                    bones: 0,
+                    parts: 0,
+                    bonesTotal: 0,
+                    upgrades: [],
+                    constructions: [],
+                    prestigePointsEarned: 0,
+                    prestigePointsToSpend: 0,
+                    boneCollectors: 0,
+                    graveyardZombies: 1,
+                    harpies: 0,
+                    resolution: 1,
+                    zoomButtons: !1,
+                    particles: !0,
+                    generators: [],
+                    currentConstruction: null,
+                    creatureLevels: [],
+                    creatures: [],
+                    creatureAutobuild: [],
+                    savedCreatures: [],
+                    levelsCompleted: [],
+                    showfps: !1,
+                    runeshatter: 0,
+                    runes: {
+                        life: {
+                            blood: 0,
+                            brains: 0,
+                            bones: 0
+                        },
+                        death: {
+                            blood: 0,
+                            brains: 0,
+                            bones: 0
+                        }
                     },
-                    death: {
-                        blood: 0,
-                        brains: 0,
-                        bones: 0
-                    }
-                },
-                trophies: [],
-                vipEscaped: [],
-                autoRelease: !1,
-                skeleton: null,
-                skeletonTalents: []
-            }
+                    trophies: [],
+                    vipEscaped: [],
+                    autoRelease: !1,
+                    skeleton: null,
+                    skeletonTalents: []
+                }
         }
         static getInstance() {
             return ne.instance || (ne.instance = new ne, ne.instance.particles = new Qe, ne.instance.trophies = new de, ne.instance.bones = new tt, ne.instance.creatureFactory = new ae, ne.instance.creatures = new Ue, ne.instance.boneCollectors = new Ve, ne.instance.graveyard = new Oe, ne.instance.spells = new q, ne.instance.partFactory = new se, ne.instance.skeleton = new Xe, ne.instance.upgrades = new oe, ne.instance.zombies = new Ae, ne.instance.humans = new Se, ne.instance.police = new ke, ne.instance.army = new Te), ne.instance
         }
         resetToBaseStats() {
-            this.energyRate = this.baseStats.energyRate, 
-                this.brainsRate = this.baseStats.brainsRate, 
-                this.bonesRate = this.baseStats.bonesRate, 
-                this.energyMax = this.baseStats.energyMax, 
-                this.bloodMax = this.baseStats.bloodMax, 
-                this.brainsMax = this.baseStats.brainsMax, 
-                this.zombieHealth = this.baseStats.zombieHealth, 
-                this.zombieDamage = this.baseStats.zombieDamage, 
-                this.zombieSpeed = this.baseStats.zombieSpeed, 
-                this.zombieCost = this.baseStats.zombieCost, 
-                this.zombieCages = 0, 
-                this.brainRecoverChance = 0, 
-                this.riseFromTheDeadChance = 0, 
-                this.infectedBiteChance = 0, 
-                this.infectedBlastChance = 0, 
-                this.construction = this.baseStats.construction, 
-                this.constructions = {}, 
-                this.boneCollectorCapacity = this.baseStats.boneCollectorCapacity, 
-                this.bonesPCMod = 1, 
-                this.partsPCMod = 1, 
-                this.bloodPCMod = 1, 
-                this.bloodStorePCMod = 1, 
-                this.brainsPCMod = 1, 
-                this.brainsStorePCMod = 1, 
-                this.zombieHealthPCMod = 1, 
-                this.zombieDamagePCMod = 1, 
-                this.HshellHealthPCMod = 1, 
-                this.HstrengthDmgPCMod = 1, 
-                this.CyroVatPCMod = 1, 
+            this.energyRate = this.baseStats.energyRate,
+                this.brainsRate = this.baseStats.brainsRate,
+                this.bonesRate = this.baseStats.bonesRate,
+                this.energyMax = this.baseStats.energyMax,
+                this.bloodMax = this.baseStats.bloodMax,
+                this.brainsMax = this.baseStats.brainsMax,
+                this.zombieHealth = this.baseStats.zombieHealth,
+                this.zombieDamage = this.baseStats.zombieDamage,
+                this.zombieSpeed = this.baseStats.zombieSpeed,
+                this.zombieCost = this.baseStats.zombieCost,
+                this.zombieCages = 0,
+                this.brainRecoverChance = 0,
+                this.riseFromTheDeadChance = 0,
+                this.infectedBiteChance = 0,
+                this.infectedBlastChance = 0,
+                this.construction = this.baseStats.construction,
+                this.constructions = {},
+                this.boneCollectorCapacity = this.baseStats.boneCollectorCapacity,
+                this.bonesPCMod = 1,
+                this.partsPCMod = 1,
+                this.bloodPCMod = 1,
+                this.bloodStorePCMod = 1,
+                this.brainsPCMod = 1,
+                this.brainsStorePCMod = 1,
+                this.zombieHealthPCMod = 1,
+                this.zombieDamagePCMod = 1,
+                this.HshellHealthPCMod = 1,
+                this.HstrengthDmgPCMod = 1,
+                this.CyroVatPCMod = 1,
                 this.PlagueVatPCMod = 1,
-                this.CloningRep1PCMod = 1, 
-                this.BloodSynPCMod = 1, 
-                this.SynBonePCMod = 1,                 
-                this.SmolPartsPCMod = 1, 
-                this.AvionicsPCMod = 1, 
-                this.ShockPCMod = 1,                 
-                this.EnergyCostMod = 0, 
-                this.golemHealthPCMod = 1, 
-                this.golemDamagePCMod = 1, 
-                this.prest_multPCMod = 1,                 
-                this.plagueDamageMod = 0, 
-                this.plagueticks = 2, 
-                this.burningSpeedMod = 1, 
-                this.startingResources = 0, 
+                this.CloningRep1PCMod = 1,
+                this.BloodSynPCMod = 1,
+                this.SynBonePCMod = 1,
+                this.SmolPartsPCMod = 1,
+                this.AvionicsPCMod = 1,
+                this.ShockPCMod = 1,
+                this.EnergyCostMod = 0,
+                this.golemHealthPCMod = 1,
+                this.golemDamagePCMod = 1,
+                this.prest_multPCMod = 1,
+                this.plagueDamageMod = 0,
+                this.plagueticks = 2,
+                this.burningSpeedMod = 1,
+                this.startingResources = 0,
                 this.fenceRadius = 50,
                 this.SkeleMoveMod = 0,
-                this.spitDistance = 0, 
-                this.spikeDelay = 5, 
-                this.blastHealing = 0, 
-                this.plagueDmgReduction = 1, 
-                this.creatureLimit = 1, 
-                this.runicSyphon.percentage = 0, 
-                this.autoconstructionUnlocked = !1, 
-                this.autoUpgrades = !1, 
-                this.graveyardHealthMod = 1, 
-                this.bulletproofChance = 0, 
-                this.gigazombies = !1, 
-                this.harpySpeed = 75, 
-                this.tankBuster = !1, 
+                this.spitDistance = 0,
+                this.spikeDelay = 5,
+                this.blastHealing = 0,
+                this.plagueDmgReduction = 1,
+                this.creatureLimit = 1,
+                this.runicSyphon.percentage = 0,
+                this.autoconstructionUnlocked = !1,
+                this.autoUpgrades = !1,
+                this.graveyardHealthMod = 1,
+                this.bulletproofChance = 0,
+                this.gigazombies = !1,
+                this.harpySpeed = 75,
+                this.tankBuster = !1,
                 this.harpyBombs = 1
         }
         addEnergy(e) {
@@ -1344,15 +1347,17 @@ var Incremancer;
         }
         loadData() {
             try {
-                null !== localStorage.getItem(this.storageName) && (this.persistentData = JSON.parse(localStorage.getItem(this.storageName)), this.level = this.persistentData.levelUnlocked, null !== localStorage.getItem(this.skeleton.storageName) ? this.skeleton.persistent = JSON.parse(localStorage.getItem(this.skeleton.storageName)) : this.skeleton.persistent = {
+                null !== localStorage.getItem(this.storageName) && (this.persistentData = JSON.parse(localStorage.getItem(this.storageName)), this.level = this.persistentData.levelUnlocked, null !== localStorage.getItem(this.skeleton.storageName) ? (this.skeleton.persistent = JSON.parse(localStorage.getItem(this.skeleton.storageName)), !('gearSetEquipped' in this.skeleton.persistent) && (this.skeleton.persistent.gearSetEquipped = -1), !('gearSets' in this.skeleton.persistent) && (this.skeleton.persistent.gearSets = [])) : this.skeleton.persistent = {
                     xpRate: 0,
                     skeletons: 0,
                     level: 1,
                     xp: 0,
                     items: [],
+                    gearSetEquipped: -1,
+                    gearSets: [],
                     currItemId: 0,
                     talentReset: !1
-                }, null !== localStorage.getItem(this.skeleton.talentsStorageName) ? this.skeleton.talents = JSON.parse(localStorage.getItem(this.skeleton.talentsStorageName)) : this.skeleton.talents = [], this.updatePersistentData(), this.calcOfflineProgress())
+                }, null !== localStorage.getItem(this.skeleton.talentsStorageName) ? this.skeleton.talents = JSON.parse(localStorage.getItem(this.skeleton.talentsStorageName)) : this.skeleton.talents = [], this.updatePersistentData(), this.calcOfflineProgress());
             } catch (e) {
                 console.log(e)
             }
@@ -1395,7 +1400,7 @@ var Incremancer;
                     i = ne.getInstance();
                 s.onload = function (e) {
                     const t = JSON.parse(LZString.decompressFromEncodedURIComponent(e.target.result));
-                    t.dateOfSave ? (t.skeleton && (i.skeleton.persistent = t.skeleton, delete t.skeleton), t.skeletonTalents ? (i.skeleton.talents = t.skeletonTalents, delete t.skeletonTalents) : i.skeleton.talents = [], i.persistentData = t, i.updatePersistentData(), i.saveToPlayFab(), i.level = i.persistentData.levelUnlocked, i.creatureFactory.spawnedSavedCreatures = !1, i.setupLevel()) : alert("Error loading save game")
+                    t.dateOfSave ? (t.skeleton && (i.skeleton.persistent = t.skeleton, delete t.skeleton, !('gearSetEquipped' in i.skeleton.persistent) && (i.skeleton.persistent.gearSetEquipped = -1), !('gearSets' in i.skeleton.persistent) && (i.skeleton.persistent.gearSets = [])), t.skeletonTalents ? (i.skeleton.talents = t.skeletonTalents, delete t.skeletonTalents) : i.skeleton.talents = [], i.persistentData = t, i.updatePersistentData(), i.saveToPlayFab(), i.level = i.persistentData.levelUnlocked, i.creatureFactory.spawnedSavedCreatures = !1, i.setupLevel()) : alert("Error loading save game")
                 }, s.readAsText(t)
             }
         }
@@ -1548,11 +1553,11 @@ var Incremancer;
                 CloningRep1PC: "CloningRep1PC",
                 BloodSynPC: "BloodSynPC",
                 SynBonePC: "SynBonePC",
-                SmolPartsPC: "SmolPartsPC",                
+                SmolPartsPC: "SmolPartsPC",
                 AvionicsPC: "AvionicsPC",
                 SkeleMove: "SkeleMove",
                 ShockPC: "ShockPC",
-                EnergyCost: "EnergyCost",   
+                EnergyCost: "EnergyCost",
                 golemHealthPC: "golemHealthPC",
                 golemDamagePC: "golemDamagePC",
                 prest_multPC: "prest_multPC",
@@ -1639,184 +1644,184 @@ var Incremancer;
                 HybridLab: "HybridLab",
                 AdvHybridLab: "AdvHybridLab",
                 MiniAssembLine: "MiniAssembLine",
-                TechThinkTank: "TechThinkTank"                   
+                TechThinkTank: "TechThinkTank"
             }, this.constructionUpgrades = [new he(201, "Cursed Graveyard", this.constructionTypes.graveyard, {
                 blood: 1800
-            }, 30, 1, 1, 1, null, "Construct a Cursed Graveyard in the town that will automatically spawn zombies when your energy is at its maximum!", "Graveyard menu now available!"), 
+            }, 30, 1, 1, 1, null, "Construct a Cursed Graveyard in the town that will automatically spawn zombies when your energy is at its maximum!", "Graveyard menu now available!"),
             new he(205, "Crypt", this.constructionTypes.crypt, {
                 blood: 21e3,
                 bones: 2220
-            }, 60, 1, 1, 1, 201, "Construct a Crypt in your graveyard. This will give you a nice dark and quiet place to think. The additional space will also allow you to store 50% more blood and brains!", null), 
+            }, 60, 1, 1, 1, 201, "Construct a Crypt in your graveyard. This will give you a nice dark and quiet place to think. The additional space will also allow you to store 50% more blood and brains!", null),
             new he(206, "Bone Fort", this.constructionTypes.fort, {
                 blood: 6e4,
                 bones: 6e3,
                 energy: 60
-            }, 60, 1, 1, 1, 205, "Turn your crypt into a fort. The additional space will also allow you to store 60% more blood and brains.", "New upgrades are available in the shop!"), 
+            }, 60, 1, 1, 1, 205, "Turn your crypt into a fort. The additional space will also allow you to store 60% more blood and brains.", "New upgrades are available in the shop!"),
             new he(207, "Bone Fortress", this.constructionTypes.fortress, {
                 blood: 1e5,
                 bones: 9e3,
                 energy: 90
-            }, 60, 1, 1, 1, 206, "Turn your fort into a fortress. The additional space will also allow you to store 70% more blood and brains.", null), 
+            }, 60, 1, 1, 1, 206, "Turn your fort into a fortress. The additional space will also allow you to store 70% more blood and brains.", null),
             new he(211, "Bone Citadel", this.constructionTypes.citadel, {
                 blood: 2e5,
                 bones: 12e3,
                 energy: 120
-            }, 60, 1, 1, 1, 207, "Turn your fortress into a towering citadel that looms over the town. The additional space will also allow you to store 80% more blood and brains.", "New upgrades are available in the shop!"), 
+            }, 60, 1, 1, 1, 207, "Turn your fortress into a towering citadel that looms over the town. The additional space will also allow you to store 80% more blood and brains.", "New upgrades are available in the shop!"),
             new he(202, "Perimeter Fence", this.constructionTypes.fence, {
                 bones: 880,
                 energy: 22
-            }, 44, 1, 1, 1, 201, "Build a protective fence around the graveyard that will reduce damage taken by zombies inside by 50%.", null), 
+            }, 44, 1, 1, 1, 201, "Build a protective fence around the graveyard that will reduce damage taken by zombies inside by 50%.", null),
             new he(203, "Bigger Fence", this.constructionTypes.fenceSize, {
                 bones: 880,
                 energy: 22
-            }, 44, 1, 10, 5, 202, "Enlarge the fence so a greater area is protected.", null), 
+            }, 44, 1, 10, 5, 202, "Enlarge the fence so a greater area is protected.", null),
             new he(204, "Plague Workshop", this.constructionTypes.plagueWorkshop, {
                 blood: 10200,
                 brains: 600
-            }, 60, 1, 1, 1, 205, "Build a laboratory to study the effects of plague. This will unlock new upgrades in the shop.", "Plague upgrades now available!"), 
+            }, 60, 1, 1, 1, 205, "Build a laboratory to study the effects of plague. This will unlock new upgrades in the shop.", "Plague upgrades now available!"),
             new he(208, "Plague Spikes", this.constructionTypes.plagueSpikes, {
                 brains: 3e3,
                 bones: 1e3
-            }, 30, 1, 1, 1, 204, "Booby trap the area around your graveyard with cruel spikes that infect trespassing humans with the plague.", null), 
+            }, 30, 1, 1, 1, 204, "Booby trap the area around your graveyard with cruel spikes that infect trespassing humans with the plague.", null),
             new he(209, "Spell Tower", this.constructionTypes.spellTower, {
                 brains: 3e3,
                 blood: 3e4
-            }, 30, 1, 1, 1, 206, "Dedicate one tower of your fort to the study of spellcraft. Perhaps you can learn some new spells?", "Spells now available in the shop!"), 
+            }, 30, 1, 1, 1, 206, "Dedicate one tower of your fort to the study of spellcraft. Perhaps you can learn some new spells?", "Spells now available in the shop!"),
             new he(210, "Runesmith", this.constructionTypes.runesmith, {
                 bones: 3e3,
                 blood: 12e4,
                 brains: 1e3
-            }, 30, 1, 1, 1, 207, "Build a runesmith's workshop in order to fortify your zombies with powerful runes.", null), 
+            }, 30, 1, 1, 1, 207, "Build a runesmith's workshop in order to fortify your zombies with powerful runes.", null),
             new he(212, "Accursed Aviary", this.constructionTypes.aviary, {
                 bones: 6e3,
                 blood: 22e4,
                 brains: 2e3
-            }, 60, 1, 1, 1, 211, "Construct an aviary on top of your citadel so you can release wicked harpies to bomb the townspeople.", "Harpies available for hire in the graveyard menu"), 
+            }, 60, 1, 1, 1, 211, "Construct an aviary on top of your citadel so you can release wicked harpies to bomb the townspeople.", "Harpies available for hire in the graveyard menu"),
             new he(213, "Zombie Cage", this.constructionTypes.zombieCage, {
                 bones: 600,
                 blood: 900
-            }, 30, 1, 5, 1, 201, "Build a cage to contain surplus zombies once a town is defeated.", null), 
+            }, 30, 1, 5, 1, 201, "Build a cage to contain surplus zombies once a town is defeated.", null),
             new he(214, "Second Zombie Cage", this.constructionTypes.zombieCage, {
                 bones: 1200,
                 blood: 1800
-            }, 30, 1, 10, 1, 205, "Build an additional cage to contain surplus zombies once a town is defeated.", null), 
+            }, 30, 1, 10, 1, 205, "Build an additional cage to contain surplus zombies once a town is defeated.", null),
             new he(215, "Third Zombie Cage", this.constructionTypes.zombieCage, {
                 bones: 1800,
                 blood: 2700
-            }, 30, 1, 10, 1, 206, "Build an additional cage to contain surplus zombies once a town is defeated.", null), 
+            }, 30, 1, 10, 1, 206, "Build an additional cage to contain surplus zombies once a town is defeated.", null),
             new he(216, "Fourth Zombie Cage", this.constructionTypes.zombieCage, {
                 bones: 2400,
                 blood: 3600
-            }, 30, 1, 10, 1, 207, "Build an additional cage to contain surplus zombies once a town is defeated.", null), 
+            }, 30, 1, 10, 1, 207, "Build an additional cage to contain surplus zombies once a town is defeated.", null),
             new he(217, "Fifth Zombie Cage", this.constructionTypes.zombieCage, {
                 bones: 3e3,
                 blood: 4500
-            }, 30, 1, 15, 1, 211, "Build an additional cage to contain surplus zombies once a town is defeated.", null), 
+            }, 30, 1, 15, 1, 211, "Build an additional cage to contain surplus zombies once a town is defeated.", null),
             new he(218, "Plague Laboratory", this.constructionTypes.plagueLaboratory, {
                 brains: 25e3,
                 blood: 1e6
-            }, 50, 1, 1, 1, 211, "Expand the plague workshop into a well equipped laboratory in order to unlock additional plague upgrades.", null), 
+            }, 50, 1, 1, 1, 211, "Expand the plague workshop into a well equipped laboratory in order to unlock additional plague upgrades.", null),
             new he(219, "Part Factory", this.constructionTypes.partFactory, {
                 brains: 35e3,
                 blood: 15e6
-            }, 50, 1, 1, 1, 218, "Build a factory to create parts that can be used to construct more powerful beings for your army.", "Factory menu now available!"), 
+            }, 50, 1, 1, 1, 218, "Build a factory to create parts that can be used to construct more powerful beings for your army.", "Factory menu now available!"),
             new he(220, "Creature Factory", this.constructionTypes.monsterFactory, {
                 brains: 45e3,
                 blood: 4e7
-            }, 50, 1, 1, 1, 219, "Build a factory to turn creature parts into living entities of destruction", "Creatures now available in factory menu!"), 
+            }, 50, 1, 1, 1, 219, "Build a factory to turn creature parts into living entities of destruction", "Creatures now available in factory menu!"),
             new he(221, "Bottomless Pit", this.constructionTypes.pit, {
                 bones: 75e3,
                 parts: 5e6
-            }, 50, 1, 1, 10, 219, "A bottomless pit with walls made from creature parts. Drastically increases your capacity to store blood and brains.", null), 
+            }, 50, 1, 1, 10, 219, "A bottomless pit with walls made from creature parts. Drastically increases your capacity to store blood and brains.", null),
             new he(222, "Harpy Outfitter", this.constructionTypes.harpy, {
                 bones: 75e3,
                 brains: 75e3,
                 blood: 8e7
             }, 50, 1, 1, 1, 220, "Build an outfitter to upgrade the abilities of your harpies.", "Harpy upgrades now available in the shop!"),
-           new he(301, "Hybrid Laboratory", this.constructionTypes.HybridLab, {
+            new he(301, "Hybrid Laboratory", this.constructionTypes.HybridLab, {
                 bones: 75e6,
                 parts: 9e12
             }, 240, 1, 1, 1, 222, "Build a new laboratory to unlock the potential of Zombie-Golem Hybrids.  Deep storage tanks for Blood and Brains are needed for research, doubling storage", "New upgrades are available in the shop!"),
-           new he(302, "Advanced Hybrid Laboratory", this.constructionTypes.AdvHybridLab, {
+            new he(302, "Advanced Hybrid Laboratory", this.constructionTypes.AdvHybridLab, {
                 bones: 75e8,
                 parts: 7e13
             }, 240, 1, 1, 1, 301, "Build an advanced laboratory to further unlock the secrets of Zombie-Golem Hybridization. Even deeper storage tanks for Blood and Brains are needed for research. Doubles storage", "New upgrades are available in the shop!"),
-           new he(303, "Miniturized Assembly Lines", this.constructionTypes.MiniAssembLine, {
+            new he(303, "Miniturized Assembly Lines", this.constructionTypes.MiniAssembLine, {
                 bones: 75e10,
                 parts: 4e16
             }, 240, 1, 1, 1, 302, "Build a new way to create everything faster!  How deep can these storage tanks go? Doubles storage.", "New upgrades are available in the shop!"),
-           new he(304, "Technical Think Tank", this.constructionTypes.TechThinkTank, {
+            new he(304, "Technical Think Tank", this.constructionTypes.TechThinkTank, {
                 bones: 75e12,
                 parts: 1e18
             }, 240, 1, 1, 1, 303, "Using all these stored brains allows us to harness their raw computational power for even more innovations!  Storage tanks resting on bedrock is as far as we can go, doubling storage", "New upgrades are available in the shop!")
-        ],
-                
+            ],
+
                 this.upgrades = [new le(1, "Bloodthirst", this.types.damage, this.costs.blood, 50, 1.2, 1, 40, "Your zombies thirst for blood and do +1 damage for each rank of Bloodthirst.", null, null),
-                                 new le(9, "Sharpened Teeth", this.types.damage, this.costs.blood, 3e3, 1.23, 3, 50, "Your zombies bites do +3 damage with each rank of Sharpened Teeth.", null, 206), 
-                                 new le(11, "Razor Claws", this.types.damage, this.costs.blood, 28e3, 1.25, 5, 0, "Your zombies attacks do +5 damage with each rank of Razor Claws.", null, 211), 
-                                 new le(16, "Killer Instinct", this.types.damage, this.costs.blood, 1e6, 1.27, 8, 0, "Your zombies attacks do +8 damage with each rank of Killer Instinct.", null, 220), 
-                                 new le(2, "Like Leather", this.types.health, this.costs.blood, 100, 1.2, 10, 40, "Your zombies gain tougher skin and +10 health with each rank.", null, null),
-                                 new le(10, "Thick Skull", this.types.health, this.costs.blood, 5e3, 1.23, 25, 50, "Your zombies gain +25 health with each rank.", null, 206),
-                                 new le(12, "Battle Hardened", this.types.health, this.costs.blood, 32e3, 1.25, 40, 0, "Your zombies gain +40 health with each rank of Battle Hardened.", null, 211),
-                                 new le(17, "Tough as Nails", this.types.health, this.costs.blood, 1e6, 1.27, 100, 0, "Your zombies gain +100 health with each rank of Tough as Nails.", null, 220),
-                                 new le(3, "Cold Storage", this.types.brainsCap, this.costs.blood, 150, 1.2, 50, 20, "Turns out you can use all of your spare blood to store brains and keep them fresh. Each rank increases your maximum brain capacity by 50.", null, null),
-                                 new le(4, "Recycling is Cool", this.types.brainRecoverChance, this.costs.blood, 1e3, 1.2, .1, 10, "Why are we wasting so many good brains on this project? Each rank increases your chance to get a brain back from a dead zombie by 10%", null, null),
-                                 new le(5, "Your Soul is Mine!", this.types.riseFromTheDeadChance, this.costs.blood, 1500, 1.4, .1, 10, "Using your most powerful blood magic you command the bodies of the dead to rise as your servants! Each rank grants 10% chance that dead humans will turn into zombies.", null, null),
-                                 new le(6, "Infected Bite", this.types.infectedBite, this.costs.blood, 3500, 1.4, .1, 10, "Your zombies are now infected with plague and could infect their victims too. Each rank adds 10% chance to inflict damage over time when a zombie attacks a target.", null, 204),
-                                 new le(7, "Detonate", this.types.unlockSpell, this.costs.blood, 25e3, 1, 3, 1, "Learn the Detonate spell which can explode all of your zombies into a cloud of plague. Not exactly sure how useful that will be.", "New spell learned, Detonate!", 209),
-                                 new le(8, "Gigazombies?", this.types.unlockSpell, this.costs.blood, 5e4, 1, 5, 1, "Learn the Gigazombies spell which will turn some of your zombies into hulking monstrosities with increased health and damage.", "New spell learned, Gigazombies!", 209),
-                                 new le(13, "Blazing Speed", this.types.burningSpeedPC, this.costs.blood, 3e4, 1.25, .05, 10, "The humans are using torches to set your zombies on fire. Perhaps we can turn the tables on them? Each rank increases the movement and attack speed of burning zombies by 5%", null, 207),
-                                 new le(14, "Spit it Out", this.types.spitDistance, this.costs.blood, 5e5, 1.8, 5, 15, "The first rank gives your zombies the ability to spit plague at enemies beyond normal attack range. Spit attacks do 50% zombie damage and infect the victim with plague. Subsequent ranks will increase the range of spit attacks.", null, 218),
-                                 new le(15, "Runic Syphon", this.types.runicSyphon, this.costs.blood, 34e3, 1.9, .01, 10, "Infuse your runes for free! Each rank gives your Runesmith the ability to infuse 1% of your resource income, without consuming it. Additionally when blood and brains reach their storage limit, any additional resources will be infused automatically.", null, 210),
-                                 new le(19, "Faster Harpies", this.types.harpySpeed, this.costs.blood, 1e8, 1.07, 2, 20, "These harpies are way too slow! We have to make them faster. Each rank increases harpy speed by 2", null, 222),
-                                 new le(20, "Energy Rush", this.types.energyRate, this.costs.brains, 20, 1.8, .5, 20, "Melting brains down in your cauldron to make smoothies can be beneficial for your health. It also increases your energy rate by 0.5 per second for each rank.", null, null),
-                                 new le(21, "Master Summoner", this.types.energyCap, this.costs.brains, 10, 1.5, 5, 20, "All the brains you harvested have proved fruitful in your experiments. Each rank raises your maximum energy by 5.", null, null),
-                                 new le(22, "Primal Reflexes", this.types.speed, this.costs.brains, 5, 1.6, 1, 20, "The zombies retain more of their human agility increasing run speed by 1 for each rank.", null, null),
-                                 new le(23, "Blood Harvest", this.types.bloodStoragePC, this.costs.brains, 50, 1.12, .1, 0, "All this brain power has enabled you to devise some superior blood storage methods. Each rank increases your maximum blood by 10%.", null, null),
-                                 new le(24, "Unholy Construction", this.types.construction, this.costs.brains, 25, 1, 1, 1, "Learn the art of Unholy Construction in order to build structures that will solidify your foothold on the town.", "Construction menu now available!", null),
-                                 new le(25, "Infected Corpse", this.types.infectedBlast, this.costs.brains, 500, 1.4, .1, 10, "Fill your zombies with so much plague they are ready to explode! Each rank adds 10% chance for a zombie to explode into a cloud of plague upon death.", null, 204),
-                                 new le(26, "Energy Charge", this.types.unlockSpell, this.costs.brains, 2e3, 1, 2, 1, "Learn the Energy Charge spell which can drastically increase your energy rate for a short time.", "New spell learned, Energy Charge!", 209),
-                                 new le(27, "What Doesn't Kill You", this.types.blastHealing, this.costs.brains, 1e4, 1.3, .1, 20, "Plague explosions from zombies and harpies will also heal nearby zombies for 10% of the explosion damage with each rank.", null, 218),
-                                 new le(28, "One is Never Enough", this.types.monsterLimit, this.costs.brains, 2e4, 1.2, 1, 15, "We're definitely going to need more than one golem to finish the job. Each rank increases your creature limit by 1", null, 220),
-                                 new le(29, "Tank Buster", this.types.tankBuster, this.costs.brains, 4e5, 1.2, 1, 1, "Teach your harpies some new tricks. Once bought this upgrade will make your harpies drop fire bombs on tanks during boss stages.", null, 222),
-                                 new le(30, "Improved Spikes", this.types.spikeDelay, this.costs.brains, 800, 1.2, 1, 4, "Each rank reduces the delay between plague spike activation by 20%", null, 208),
-                                 new le(40, "Bone Throne", this.types.energyCap, this.costs.bones, 50, 1.55, 10, 15, "Sitting atop your throne of bones you can finally think clearly. Each rank increases maximum energy by 10.", null, null),
-                                 new le(41, "Crown of Bones", this.types.energyRate, this.costs.bones, 200, 1.5, .2, 25, "Not just dapper, these spikes help channel your energy. Each rank increases energy rate by 0.2 per second.", null, null),
-                                 new le(42, "Bonebarrows", this.types.boneCollectorCapacity, this.costs.bones, 300, 1.2, 5, 20, "Your bone collectors are struggling to carry all these bones. Maybe it's time we gave them an upgrade? Each rank increases their carrying capacity by 5.", null, null),
-                                 new le(43, "Bone Reinforced Tanks", this.types.bloodCap, this.costs.bones, 500, 1.07, 2e3, 0, "Finally! Now that we have a solid construction material we can get to work building better storage for our other resources. Each rank increases blood storage by 2000.", null, null),
-                                 new le(44, "Brain Cage", this.types.brainsCap, this.costs.bones, 650, 1.07, 500, 0, "There's nothing I love more than a mind enslaved. Now we can put these brains where they belong. In cages! Each rank increases brain storage by 500.", null, null),
-                                 new le(45, "Earth Freeze", this.types.unlockSpell, this.costs.bones, 5e3, 1, 4, 1, "Learn the Earth Freeze spell which can freeze all humans in place for a short time.", "New spell learned, Earth Freeze!", 209),
-                                 new le(46, "Plague Armor", this.types.plagueArmor, this.costs.bones, 15e3, 1.6, .02, 10, "The best defense is a good offense? True in the case of Plague Armor which reduces the damage done by infected humans by 2% per rank.", null, 218),
-                                 new le(47, "Bulletproof", this.types.bulletproof, this.costs.bones, 6e4, 1.6, .05, 15, "Craft your earth golems from much harder stone. Each rank gives them 5% chance to reflect bullets back to their source.", null, 220),
-                                 new le(48, "Bombs Away", this.types.harpyBombs, this.costs.bones, 5e5, 1.6, 1, 3, "Upgrade your harpies so they can carry more than just one bomb at a time.", null, 222),
-                                 new le(60, "Extra Limbs", this.types.golemDamagePC, this.costs.parts, 900, 1.3, .02, 0, "Your golems gain +2% damage with each rank of Extra Limbs.", null, 220),
-                                 new le(61, "Big Boned", this.types.golemHealthPC, this.costs.parts, 1e3, 1.31, .02, 0, "Your golems gain +2% health with each rank of Big Boned.", null, 220),
-                                 new le(62, "Hybrid Strength", this.types.HstrengthDmgPC, this.costs.parts, 1e3, 1.3, .01, 0, "Animating Golem parts fused with zombie flesh creates a terrifyingly strong Hybrid. Your zombies gain +1% damage with each rank of Hybrid Strength.", null, 301),
-                                 new le(63, "Hybrid Shell", this.types.HshellHealthPC, this.costs.parts, 1e3, 1.31, .01, 0, "Golem armor shell provides extra protection for your fleshy zombies. Your zombies gain +1% health with each rank of Hybrid Shell.", null, 301),
-                                 new le(64, "Advanced Cyrogenic Vats", this.types.CyroVatPC, this.costs.parts, 1e3, 1.4, .1, 0, "Cooling these Brains further makes them last much longer. Your brain storage increases +10% with each rank of Advanced Cyrogenic Vats.", null, 302),
-                                 new le(65, "Golem Part Plague Vats", this.types.PlagueVatPC, this.costs.brains, 1e3, 1.35, .01, 0, "Using specialized Golem Parts allows for advancements in plague research. Plague Damage increases +1% with each rank of Golem Part Plague Vats.", null, 302),
-                                 new le(66, "Cloning Replicator", this.types.CloningRep1PC, this.costs.parts, 1e12, 1.26, .05, 0, "Mass produced Cloning Replicators allows for much greater use out of each Brain obtained. Brain Income increases +5% with each rank of Cloning Replicator.", null, 303),
-                                 new le(67, "Blood Synthezizer", this.types.BloodSynPC, this.costs.parts, 2e12, 1.25, .05, 0, "Artificial Blood can augment what we already get allowing for more of everything. Blood Income increases +5% with each rank of Blood Synthesizer.", null, 303),
-                                 new le(68, "Synthetic Bone Fabricator", this.types.SynBonePC, this.costs.parts, 3e12, 1.24, .05, 0, "Synthetic Bones made from Golem Parts?  Genius! Bone Income increases +5% with each rank of Synthetic Bone Fabricator.", null, 303),
-                                 new le(69, "Insectoid Parts Assemblers", this.types.SmolPartsPC, this.costs.parts, 4e12, 1.23, .05, 0, "Insect sized and shaped assemblers are far more efficient at maufacturing Golem parts. Parts Income increases +5% with each rank of Insectoid Parts Assemblers.", null, 303),
-                                 new le(70, "Golem Avionic", this.types.AvionicsPC, this.costs.parts, 2e17, 1.20, 2, 50, "Building on the success of hybrid zombies, small golem parts can enhance Harpy-Golem Hybrids. Harpy Speed +2 with each rank of Golem Avionics.", null, 304),
-                                 new le(71, "Electro-Shock Collars", this.types.ShockPC, this.costs.parts, 3e14, 1.20, .0025, 0, "Using shock collars tuned to the Hybrid Zombie's nervous system causes them to attack at blinding speeds! Attack Speed +0.25% with each rank of Electro-Shock Collars.", null, 304),
-                                 new le(72, "Power Regulators", this.types.EnergyCost, this.costs.parts, 1e18, 1.20, 1, 30, "Golem parts assembled around the graveyard can help regulate and attune necrotic power. Reduces zombie summoning cost by 1 with each rank of Power Regulators.", null, 304),               
-                                 new le(73, "Sephirin's Reputation", this.types.prest_multPC, this.costs.blood, 1e20, 1.25, .03, 0, "Astounding levels of blood sacrificed can enhance your reputation with dark entities in the Void. +3% Zombie Heatlh and Damage per rank", null, 304),
-                                 new le(74, "Strider's Mathemagics", this.types.SkeleMove, this.costs.parts, 1e18, 6, 1, 10, "Using Archane Mathemagics you imbue your Skeleton Champion with golem based ligaments. +1 Movement Speed per rank.(In testing)", null, 304)],      
+                new le(9, "Sharpened Teeth", this.types.damage, this.costs.blood, 3e3, 1.23, 3, 50, "Your zombies bites do +3 damage with each rank of Sharpened Teeth.", null, 206),
+                new le(11, "Razor Claws", this.types.damage, this.costs.blood, 28e3, 1.25, 5, 0, "Your zombies attacks do +5 damage with each rank of Razor Claws.", null, 211),
+                new le(16, "Killer Instinct", this.types.damage, this.costs.blood, 1e6, 1.27, 8, 0, "Your zombies attacks do +8 damage with each rank of Killer Instinct.", null, 220),
+                new le(2, "Like Leather", this.types.health, this.costs.blood, 100, 1.2, 10, 40, "Your zombies gain tougher skin and +10 health with each rank.", null, null),
+                new le(10, "Thick Skull", this.types.health, this.costs.blood, 5e3, 1.23, 25, 50, "Your zombies gain +25 health with each rank.", null, 206),
+                new le(12, "Battle Hardened", this.types.health, this.costs.blood, 32e3, 1.25, 40, 0, "Your zombies gain +40 health with each rank of Battle Hardened.", null, 211),
+                new le(17, "Tough as Nails", this.types.health, this.costs.blood, 1e6, 1.27, 100, 0, "Your zombies gain +100 health with each rank of Tough as Nails.", null, 220),
+                new le(3, "Cold Storage", this.types.brainsCap, this.costs.blood, 150, 1.2, 50, 20, "Turns out you can use all of your spare blood to store brains and keep them fresh. Each rank increases your maximum brain capacity by 50.", null, null),
+                new le(4, "Recycling is Cool", this.types.brainRecoverChance, this.costs.blood, 1e3, 1.2, .1, 10, "Why are we wasting so many good brains on this project? Each rank increases your chance to get a brain back from a dead zombie by 10%", null, null),
+                new le(5, "Your Soul is Mine!", this.types.riseFromTheDeadChance, this.costs.blood, 1500, 1.4, .1, 10, "Using your most powerful blood magic you command the bodies of the dead to rise as your servants! Each rank grants 10% chance that dead humans will turn into zombies.", null, null),
+                new le(6, "Infected Bite", this.types.infectedBite, this.costs.blood, 3500, 1.4, .1, 10, "Your zombies are now infected with plague and could infect their victims too. Each rank adds 10% chance to inflict damage over time when a zombie attacks a target.", null, 204),
+                new le(7, "Detonate", this.types.unlockSpell, this.costs.blood, 25e3, 1, 3, 1, "Learn the Detonate spell which can explode all of your zombies into a cloud of plague. Not exactly sure how useful that will be.", "New spell learned, Detonate!", 209),
+                new le(8, "Gigazombies?", this.types.unlockSpell, this.costs.blood, 5e4, 1, 5, 1, "Learn the Gigazombies spell which will turn some of your zombies into hulking monstrosities with increased health and damage.", "New spell learned, Gigazombies!", 209),
+                new le(13, "Blazing Speed", this.types.burningSpeedPC, this.costs.blood, 3e4, 1.25, .05, 10, "The humans are using torches to set your zombies on fire. Perhaps we can turn the tables on them? Each rank increases the movement and attack speed of burning zombies by 5%", null, 207),
+                new le(14, "Spit it Out", this.types.spitDistance, this.costs.blood, 5e5, 1.8, 5, 15, "The first rank gives your zombies the ability to spit plague at enemies beyond normal attack range. Spit attacks do 50% zombie damage and infect the victim with plague. Subsequent ranks will increase the range of spit attacks.", null, 218),
+                new le(15, "Runic Syphon", this.types.runicSyphon, this.costs.blood, 34e3, 1.9, .01, 10, "Infuse your runes for free! Each rank gives your Runesmith the ability to infuse 1% of your resource income, without consuming it. Additionally when blood and brains reach their storage limit, any additional resources will be infused automatically.", null, 210),
+                new le(19, "Faster Harpies", this.types.harpySpeed, this.costs.blood, 1e8, 1.07, 2, 20, "These harpies are way too slow! We have to make them faster. Each rank increases harpy speed by 2", null, 222),
+                new le(20, "Energy Rush", this.types.energyRate, this.costs.brains, 20, 1.8, .5, 20, "Melting brains down in your cauldron to make smoothies can be beneficial for your health. It also increases your energy rate by 0.5 per second for each rank.", null, null),
+                new le(21, "Master Summoner", this.types.energyCap, this.costs.brains, 10, 1.5, 5, 20, "All the brains you harvested have proved fruitful in your experiments. Each rank raises your maximum energy by 5.", null, null),
+                new le(22, "Primal Reflexes", this.types.speed, this.costs.brains, 5, 1.6, 1, 20, "The zombies retain more of their human agility increasing run speed by 1 for each rank.", null, null),
+                new le(23, "Blood Harvest", this.types.bloodStoragePC, this.costs.brains, 50, 1.12, .1, 0, "All this brain power has enabled you to devise some superior blood storage methods. Each rank increases your maximum blood by 10%.", null, null),
+                new le(24, "Unholy Construction", this.types.construction, this.costs.brains, 25, 1, 1, 1, "Learn the art of Unholy Construction in order to build structures that will solidify your foothold on the town.", "Construction menu now available!", null),
+                new le(25, "Infected Corpse", this.types.infectedBlast, this.costs.brains, 500, 1.4, .1, 10, "Fill your zombies with so much plague they are ready to explode! Each rank adds 10% chance for a zombie to explode into a cloud of plague upon death.", null, 204),
+                new le(26, "Energy Charge", this.types.unlockSpell, this.costs.brains, 2e3, 1, 2, 1, "Learn the Energy Charge spell which can drastically increase your energy rate for a short time.", "New spell learned, Energy Charge!", 209),
+                new le(27, "What Doesn't Kill You", this.types.blastHealing, this.costs.brains, 1e4, 1.3, .1, 20, "Plague explosions from zombies and harpies will also heal nearby zombies for 10% of the explosion damage with each rank.", null, 218),
+                new le(28, "One is Never Enough", this.types.monsterLimit, this.costs.brains, 2e4, 1.2, 1, 15, "We're definitely going to need more than one golem to finish the job. Each rank increases your creature limit by 1", null, 220),
+                new le(29, "Tank Buster", this.types.tankBuster, this.costs.brains, 4e5, 1.2, 1, 1, "Teach your harpies some new tricks. Once bought this upgrade will make your harpies drop fire bombs on tanks during boss stages.", null, 222),
+                new le(30, "Improved Spikes", this.types.spikeDelay, this.costs.brains, 800, 1.2, 1, 4, "Each rank reduces the delay between plague spike activation by 20%", null, 208),
+                new le(40, "Bone Throne", this.types.energyCap, this.costs.bones, 50, 1.55, 10, 15, "Sitting atop your throne of bones you can finally think clearly. Each rank increases maximum energy by 10.", null, null),
+                new le(41, "Crown of Bones", this.types.energyRate, this.costs.bones, 200, 1.5, .2, 25, "Not just dapper, these spikes help channel your energy. Each rank increases energy rate by 0.2 per second.", null, null),
+                new le(42, "Bonebarrows", this.types.boneCollectorCapacity, this.costs.bones, 300, 1.2, 5, 20, "Your bone collectors are struggling to carry all these bones. Maybe it's time we gave them an upgrade? Each rank increases their carrying capacity by 5.", null, null),
+                new le(43, "Bone Reinforced Tanks", this.types.bloodCap, this.costs.bones, 500, 1.07, 2e3, 0, "Finally! Now that we have a solid construction material we can get to work building better storage for our other resources. Each rank increases blood storage by 2000.", null, null),
+                new le(44, "Brain Cage", this.types.brainsCap, this.costs.bones, 650, 1.07, 500, 0, "There's nothing I love more than a mind enslaved. Now we can put these brains where they belong. In cages! Each rank increases brain storage by 500.", null, null),
+                new le(45, "Earth Freeze", this.types.unlockSpell, this.costs.bones, 5e3, 1, 4, 1, "Learn the Earth Freeze spell which can freeze all humans in place for a short time.", "New spell learned, Earth Freeze!", 209),
+                new le(46, "Plague Armor", this.types.plagueArmor, this.costs.bones, 15e3, 1.6, .02, 10, "The best defense is a good offense? True in the case of Plague Armor which reduces the damage done by infected humans by 2% per rank.", null, 218),
+                new le(47, "Bulletproof", this.types.bulletproof, this.costs.bones, 6e4, 1.6, .05, 15, "Craft your earth golems from much harder stone. Each rank gives them 5% chance to reflect bullets back to their source.", null, 220),
+                new le(48, "Bombs Away", this.types.harpyBombs, this.costs.bones, 5e5, 1.6, 1, 3, "Upgrade your harpies so they can carry more than just one bomb at a time.", null, 222),
+                new le(60, "Extra Limbs", this.types.golemDamagePC, this.costs.parts, 900, 1.3, .02, 0, "Your golems gain +2% damage with each rank of Extra Limbs.", null, 220),
+                new le(61, "Big Boned", this.types.golemHealthPC, this.costs.parts, 1e3, 1.31, .02, 0, "Your golems gain +2% health with each rank of Big Boned.", null, 220),
+                new le(62, "Hybrid Strength", this.types.HstrengthDmgPC, this.costs.parts, 1e3, 1.3, .01, 0, "Animating Golem parts fused with zombie flesh creates a terrifyingly strong Hybrid. Your zombies gain +1% damage with each rank of Hybrid Strength.", null, 301),
+                new le(63, "Hybrid Shell", this.types.HshellHealthPC, this.costs.parts, 1e3, 1.31, .01, 0, "Golem armor shell provides extra protection for your fleshy zombies. Your zombies gain +1% health with each rank of Hybrid Shell.", null, 301),
+                new le(64, "Advanced Cyrogenic Vats", this.types.CyroVatPC, this.costs.parts, 1e3, 1.4, .1, 0, "Cooling these Brains further makes them last much longer. Your brain storage increases +10% with each rank of Advanced Cyrogenic Vats.", null, 302),
+                new le(65, "Golem Part Plague Vats", this.types.PlagueVatPC, this.costs.brains, 1e3, 1.35, .01, 0, "Using specialized Golem Parts allows for advancements in plague research. Plague Damage increases +1% with each rank of Golem Part Plague Vats.", null, 302),
+                new le(66, "Cloning Replicator", this.types.CloningRep1PC, this.costs.parts, 1e12, 1.26, .05, 0, "Mass produced Cloning Replicators allows for much greater use out of each Brain obtained. Brain Income increases +5% with each rank of Cloning Replicator.", null, 303),
+                new le(67, "Blood Synthezizer", this.types.BloodSynPC, this.costs.parts, 2e12, 1.25, .05, 0, "Artificial Blood can augment what we already get allowing for more of everything. Blood Income increases +5% with each rank of Blood Synthesizer.", null, 303),
+                new le(68, "Synthetic Bone Fabricator", this.types.SynBonePC, this.costs.parts, 3e12, 1.24, .05, 0, "Synthetic Bones made from Golem Parts?  Genius! Bone Income increases +5% with each rank of Synthetic Bone Fabricator.", null, 303),
+                new le(69, "Insectoid Parts Assemblers", this.types.SmolPartsPC, this.costs.parts, 4e12, 1.23, .05, 0, "Insect sized and shaped assemblers are far more efficient at maufacturing Golem parts. Parts Income increases +5% with each rank of Insectoid Parts Assemblers.", null, 303),
+                new le(70, "Golem Avionic", this.types.AvionicsPC, this.costs.parts, 2e17, 1.20, 2, 50, "Building on the success of hybrid zombies, small golem parts can enhance Harpy-Golem Hybrids. Harpy Speed +2 with each rank of Golem Avionics.", null, 304),
+                new le(71, "Electro-Shock Collars", this.types.ShockPC, this.costs.parts, 3e14, 1.20, .0025, 0, "Using shock collars tuned to the Hybrid Zombie's nervous system causes them to attack at blinding speeds! Attack Speed +0.25% with each rank of Electro-Shock Collars.", null, 304),
+                new le(72, "Power Regulators", this.types.EnergyCost, this.costs.parts, 1e18, 1.20, 1, 30, "Golem parts assembled around the graveyard can help regulate and attune necrotic power. Reduces zombie summoning cost by 1 with each rank of Power Regulators.", null, 304),
+                new le(73, "Sephirin's Reputation", this.types.prest_multPC, this.costs.blood, 1e20, 1.25, .03, 0, "Astounding levels of blood sacrificed can enhance your reputation with dark entities in the Void. +3% Zombie Heatlh and Damage per rank", null, 304),
+                new le(74, "Strider's Mathemagics", this.types.SkeleMove, this.costs.parts, 1e18, 6, 1, 10, "Using Archane Mathemagics you imbue your Skeleton Champion with golem based ligaments. +1 Movement Speed per rank.(In testing)", null, 304)],
                 this.prestigeUpgrades = [new le(108, "A Small Investment", this.types.startingPC, this.costs.prestigePoints, 10, 1.25, 1, 0, "Each rank gives you an additional 500 blood, 50 brains, and 200 bones when starting a new level.", null, null),
-                                         new le(109, "Time Warp", this.types.unlockSpell, this.costs.prestigePoints, 50, 1, 1, 1, "Unlock the Time Warp spell in order to speed up the flow of time.", null, null),
-                                         new le(110, "Master of Death", this.types.energyCost, this.costs.prestigePoints, 1e3, 1, 1, 5, "Each rank reduces the energy cost of summoning a zombie by 1", null, null),
-                                         new le(101, "Blood Storage", this.types.bloodStoragePC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% blood storage for each rank.", null, null),
-                                         new le(102, "Blood Rate", this.types.bloodGainPC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% blood income rate for each rank.", null, null),
-                                         new le(103, "Brain Storage", this.types.brainsStoragePC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% brain storage for each rank.", null, null),
-                                         new le(104, "Brain Rate", this.types.brainsGainPC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% brain income rate for each rank.", null, null),
-                                         new le(105, "Bone Rate", this.types.bonesGainPC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% bones income rate for each rank.", null, null),
-                                         new le(111, "Parts Rate", this.types.partsGainPC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% creature parts income rate for each rank.", null, null),
-                                         new le(112, "Auto Construction", this.types.autoconstruction, this.costs.prestigePoints, 250, 1, 1, 1, "Unlock the ability to automatically start construction of the cheapest available building option.", null, null),
-                                         new le(114, "Auto Shop", this.types.autoshop, this.costs.prestigePoints, 250, 1, 1, 1, "Unlock the ability to automatically purchase items from the shop.", null, null),
-                                         new le(113, "Graveyard Health", this.types.graveyardHealth, this.costs.prestigePoints, 10, 1.25, .1, 0, "Additional 10% graveyard health during boss levels with each rank.", null, null),
-                                         new le(115, "Talent Point", this.types.talentPoint, this.costs.prestigePoints, 100, 1.175, 1, 0, "Additional skeleton talent point", null, null)], oe.instance) return oe.instance;
+                new le(109, "Time Warp", this.types.unlockSpell, this.costs.prestigePoints, 50, 1, 1, 1, "Unlock the Time Warp spell in order to speed up the flow of time.", null, null),
+                new le(110, "Master of Death", this.types.energyCost, this.costs.prestigePoints, 1e3, 1, 1, 5, "Each rank reduces the energy cost of summoning a zombie by 1", null, null),
+                new le(101, "Blood Storage", this.types.bloodStoragePC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% blood storage for each rank.", null, null),
+                new le(102, "Blood Rate", this.types.bloodGainPC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% blood income rate for each rank.", null, null),
+                new le(103, "Brain Storage", this.types.brainsStoragePC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% brain storage for each rank.", null, null),
+                new le(104, "Brain Rate", this.types.brainsGainPC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% brain income rate for each rank.", null, null),
+                new le(105, "Bone Rate", this.types.bonesGainPC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% bones income rate for each rank.", null, null),
+                new le(111, "Parts Rate", this.types.partsGainPC, this.costs.prestigePoints, 10, 1.25, .2, 0, "Additional 20% creature parts income rate for each rank.", null, null),
+                new le(112, "Auto Construction", this.types.autoconstruction, this.costs.prestigePoints, 250, 1, 1, 1, "Unlock the ability to automatically start construction of the cheapest available building option.", null, null),
+                new le(114, "Auto Shop", this.types.autoshop, this.costs.prestigePoints, 250, 1, 1, 1, "Unlock the ability to automatically purchase items from the shop.", null, null),
+                new le(113, "Graveyard Health", this.types.graveyardHealth, this.costs.prestigePoints, 10, 1.25, .1, 0, "Additional 10% graveyard health during boss levels with each rank.", null, null),
+                new le(115, "Talent Point", this.types.talentPoint, this.costs.prestigePoints, 100, 1.175, 1, 0, "Additional skeleton talent point", null, null)], oe.instance) return oe.instance;
 
             oe.instance = this
         }
@@ -1843,12 +1848,12 @@ var Incremancer;
             for (let e = 0; e < this.gameModel.persistentData.constructions.length; e++) this.applyConstructionUpgrade(this.gameModel.persistentData.constructions[e]);
             const e = (new de).getAquiredTrophyList();
             for (let t = 0; t < e.length; t++) this.applyUpgrade(e[t], e[t].rank);
-            this.skeleton.applyUpgrades(), 
-                this.gameModel.bloodMax *= this.gameModel.bloodStorePCMod, 
-                this.gameModel.brainsMax *= this.gameModel.brainsStorePCMod, 
-                this.gameModel.zombieDamage *= this.gameModel.zombieDamagePCMod, 
-                this.gameModel.zombieHealth *= this.gameModel.zombieHealthPCMod, 
-            this.gameModel.persistentData.runeshatter && (this.gameModel.zombieDamage *= this.shatterEffect(),this.gameModel.zombieHealth *= this.shatterEffect(), this.gameModel.zombieCost += this.gameModel.persistentData.runeshatter)
+            this.skeleton.applyUpgrades(),
+                this.gameModel.bloodMax *= this.gameModel.bloodStorePCMod,
+                this.gameModel.brainsMax *= this.gameModel.brainsStorePCMod,
+                this.gameModel.zombieDamage *= this.gameModel.zombieDamagePCMod,
+                this.gameModel.zombieHealth *= this.gameModel.zombieHealthPCMod,
+                this.gameModel.persistentData.runeshatter && (this.gameModel.zombieDamage *= this.shatterEffect(), this.gameModel.zombieHealth *= this.shatterEffect(), this.gameModel.zombieCost += this.gameModel.persistentData.runeshatter)
         }
         applyUpgrade(e, t) {
             switch (e.type) {
@@ -1906,7 +1911,7 @@ var Incremancer;
                     return void (this.gameModel.harpySpeed += e.effect * t);
                 case this.types.SkeleMove:
                     return void (this.gameModel.SkeleMoveMod += e.effect * t),
-                                (this.skeleton.moveSpeed += e.effect * t);
+                        (this.skeleton.moveSpeed += e.effect * t);
                 case this.types.tankBuster:
                     return void (this.gameModel.tankBuster = !0);
                 case this.types.harpyBombs:
@@ -1931,42 +1936,42 @@ var Incremancer;
                     return void (this.gameModel.zombieHealthPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.HstrengthDmgPC:
                     return void (this.gameModel.zombieDamagePCMod *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.HstrengthDmgPCMod *= Math.pow(1 + e.effect, t));
+                        (this.gameModel.HstrengthDmgPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.HshellHealthPC:
                     return void (this.gameModel.zombieHealthPCMod *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.HshellHealthPCMod *= Math.pow(1 + e.effect, t));
+                        (this.gameModel.HshellHealthPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.CyroVatPC:
                     return void (this.gameModel.brainsMax *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.CyroVatPCMod *= Math.pow(1 + e.effect, t));
+                        (this.gameModel.CyroVatPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.PlagueVatPC:
                     return void (this.gameModel.PlagueVatPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.CloningRep1PC:
                     return void (this.gameModel.brainsPCMod *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.CloningRep1PCMod *= Math.pow(1 + e.effect, t));     
+                        (this.gameModel.CloningRep1PCMod *= Math.pow(1 + e.effect, t));
                 case this.types.BloodSynPC:
                     return void (this.gameModel.bloodPCMod *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.BloodSynPCMod *= Math.pow(1 + e.effect, t));      
+                        (this.gameModel.BloodSynPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.SynBonePC:
                     return void (this.gameModel.bonesPCMod *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.SynBonePCMod *= Math.pow(1 + e.effect, t)); 
+                        (this.gameModel.SynBonePCMod *= Math.pow(1 + e.effect, t));
                 case this.types.SmolPartsPC:
                     return void (this.gameModel.partsPCMod *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.SmolPartsPCMod *= Math.pow(1 + e.effect, t)); 
+                        (this.gameModel.SmolPartsPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.AvionicsPC:
                     return void (this.gameModel.harpySpeed += e.effect * t),
-                                (this.gameModel.AvionicsPCMod += e.effect * t);
-  
+                        (this.gameModel.AvionicsPCMod += e.effect * t);
+
                 case this.types.ShockPC:
                     return void (this.attackSpeed *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.ShockPCMod *= Math.pow(1 + e.effect, t)); 
+                        (this.gameModel.ShockPCMod *= Math.pow(1 + e.effect, t));
                 case this.types.EnergyCost:
                     return void (this.gameModel.zombieCost -= e.effect * t),
-                                (this.gameModel.EnergyCostMod -= e.effect * t); 
-                case this.types.prest_multPC:                    
+                        (this.gameModel.EnergyCostMod -= e.effect * t);
+                case this.types.prest_multPC:
                     return void (this.gameModel.zombieDamagePCMod *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.zombieHealthPCMod *= Math.pow(1 + e.effect, t)),
-                                (this.gameModel.prest_multPCMod *= Math.pow(1 + e.effect, t));                    
-                case this.types.golemDamagePC:                    
+                        (this.gameModel.zombieHealthPCMod *= Math.pow(1 + e.effect, t)),
+                        (this.gameModel.prest_multPCMod *= Math.pow(1 + e.effect, t));
+                case this.types.golemDamagePC:
                     return void (this.gameModel.golemDamagePCMod *= Math.pow(1 + e.effect, t));
                 case this.types.golemHealthPC:
                     return void (this.gameModel.golemHealthPCMod *= Math.pow(1 + e.effect, t));
@@ -2026,13 +2031,13 @@ var Incremancer;
                 case this.constructionTypes.monsterFactory:
                     return this.gameModel.constructions.monsterFactory = !0, void (this.gameModel.constructions.factory = !0);
                 case this.constructionTypes.HybridLab:
-                    return this.gameModel.constructions.HybridLab = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);   
+                    return this.gameModel.constructions.HybridLab = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);
                 case this.constructionTypes.AdvHybridLab:
                     return this.gameModel.constructions.AdvHybridLab = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);
                 case this.constructionTypes.MiniAssembLine:
-                    return this.gameModel.constructions.MiniAssembLine = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);   
+                    return this.gameModel.constructions.MiniAssembLine = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);
                 case this.constructionTypes.AdvHybridLab:
-                    return this.gameModel.constructions.TechThinkTank = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);                       
+                    return this.gameModel.constructions.TechThinkTank = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);
             }
         }
         displayStatValue(e) {
@@ -2080,7 +2085,7 @@ var Incremancer;
                 case this.types.zombieDmgPC:
                     return "Zombie Damage: " + Math.round(100 * this.gameModel.zombieDamagePCMod - 100) + "%";
                 case this.types.zombieHealthPC:
-                    return "Zombie Health: " + Math.round(100 * this.gameModel.zombieHealthPCMod - 100) + "%";                
+                    return "Zombie Health: " + Math.round(100 * this.gameModel.zombieHealthPCMod - 100) + "%";
                 case this.types.HstrengthDmgPC:
                     return "Zombie Damage: " + Math.round(100 * this.gameModel.HstrengthDmgPCMod - 100) + "%";
                 case this.types.HshellHealthPC:
@@ -2088,25 +2093,25 @@ var Incremancer;
                 case this.types.CyroVatPC:
                     return "Brains Storage: " + Math.round(100 * this.gameModel.CyroVatPCMod - 100) + "%";
                 case this.types.PlagueVatPC:
-                    return "Plague Damage: " + Math.round(100 * this.gameModel.PlagueVatPCMod - 100) + "%";                    
+                    return "Plague Damage: " + Math.round(100 * this.gameModel.PlagueVatPCMod - 100) + "%";
                 case this.types.CloningRep1PC:
-                    return "Additional Brain Income: " + Math.round(100 * this.gameModel.CloningRep1PCMod - 100) + "%";         
+                    return "Additional Brain Income: " + Math.round(100 * this.gameModel.CloningRep1PCMod - 100) + "%";
                 case this.types.BloodSynPC:
                     return "Additional Blood Income: " + Math.round(100 * this.gameModel.BloodSynPCMod - 100) + "%";
                 case this.types.SynBonePC:
-                    return "Additional Bone Income: " + Math.round(100 * this.gameModel.SynBonePCMod - 100) + "%"; 
+                    return "Additional Bone Income: " + Math.round(100 * this.gameModel.SynBonePCMod - 100) + "%";
                 case this.types.SmolPartsPC:
-                    return "Additional Parts Income: " + Math.round(100 * this.gameModel.SmolPartsPCMod - 100) + "%"; 
+                    return "Additional Parts Income: " + Math.round(100 * this.gameModel.SmolPartsPCMod - 100) + "%";
                 case this.types.EnergyCost:
-                    return "Zombie Cost: " + this.gameModel.zombieCost + " energy";   
+                    return "Zombie Cost: " + this.gameModel.zombieCost + " energy";
                 case this.types.AvionicsPC:
                     return "Harpy speed: " + n(this.gameModel.harpySpeed);
                 case this.types.SkeleMove:
                     return "Skeleton speed: " + n(this.gameModel.SkeleMoveMod);
                 case this.types.ShockPC:
-                    return "Attack Speed multiplier: " + Math.round(100 * this.gameModel.ShockPCMod - 100) + "%";  
+                    return "Attack Speed multiplier: " + Math.round(100 * this.gameModel.ShockPCMod - 100) + "%";
                 case this.types.prest_multPC:
-                    return "Zombie Health and Damage: " + Math.round(100 * this.gameModel.prest_multPCMod) + "%";                    
+                    return "Zombie Health and Damage: " + Math.round(100 * this.gameModel.prest_multPCMod) + "%";
                 case this.types.golemDamagePC:
                     return "Golem Damage: " + Math.round(100 * this.gameModel.golemDamagePCMod) + "%";
                 case this.types.golemHealthPC:
@@ -2566,18 +2571,18 @@ var Incremancer;
             return this.gameModel.level < 10 ? 0 : .02 * Math.min(this.gameModel.level - 10, 40)
         }
         getMaxHealth(e) {
-            return e < 7 ? 10 * (e + 4) : 
-                e < 12 ? 20 * (e - 1) : 
-                e < 16 ? 25 * (e - 3) : 
-                e < 29 ? 50 * (e - 9) : 
-                e < 49 ? 100 * (e - 19) : 
-                e < 64 ? 300 * (e - 39) : 
-                e < 85 ? 500 * (e - 49) : 
-                e < 499 ? 17800 * Math.pow(1.015, e - 84) : 
-                e < 999 ? 85e5 * Math.pow(1.03, e - 499) : 
-                e < 1499 ? 498e16 * Math.pow(1.021, e - 1499) :
-                e > 2299 ? 845e23 * Math.pow(1.025, e - 2299) :
-                22e12 * Math.pow(1.025, e - 999)
+            return e < 7 ? 10 * (e + 4) :
+                e < 12 ? 20 * (e - 1) :
+                    e < 16 ? 25 * (e - 3) :
+                        e < 29 ? 50 * (e - 9) :
+                            e < 49 ? 100 * (e - 19) :
+                                e < 64 ? 300 * (e - 39) :
+                                    e < 85 ? 500 * (e - 49) :
+                                        e < 499 ? 17800 * Math.pow(1.015, e - 84) :
+                                            e < 999 ? 85e5 * Math.pow(1.03, e - 499) :
+                                                e < 1499 ? 498e16 * Math.pow(1.021, e - 1499) :
+                                                    e > 2299 ? 845e23 * Math.pow(1.025, e - 2299) :
+                                                        22e12 * Math.pow(1.025, e - 999)
         }
         getAttackDamage() {
             1 != this.gameModel.level ? 2 != this.gameModel.level ? 3 != this.gameModel.level ? this.attackDamage = Math.round(this.getMaxHealth(this.gameModel.level) / 10) : this.attackDamage = 5 : this.attackDamage = 4 : this.attackDamage = 2
@@ -3423,6 +3428,8 @@ var Incremancer;
                 level: 1,
                 xp: 0,
                 items: [],
+                gearSetEquipped: -1,
+                gearSets: [],
                 currItemId: 0,
                 talentReset: !1
             }, this.talents = [], this.talentPoints = 0, this.killingBlowParts = 0, this.lootChanceMod = 1, this.increaseChance = 0, this.darkorb = 0, this.darkorbTimer = 0, this.boneshield = 0, this.aliveZombies = [], this.graveyardAttackers = [], this.lootPositions = {
@@ -3525,14 +3532,14 @@ var Incremancer;
                 this.applyItemUpgrades();
                 const scalingFactor = Math.pow(1.0001, this.persistent.level);
                 const e = 1 + this.persistent.level / 100;
-                    this.model.bloodPCMod *= e, 
+                this.model.bloodPCMod *= e,
                     this.model.brainsPCMod *= e,
                     this.model.bonesPCMod *= e,
                     this.model.partsPCMod *= e,
                     this.model.zombieDamagePCMod *= e,
                     this.model.zombieHealthPCMod *= e,
                     this.model.PlagueVatPCMod *= scalingFactor,
-                    this.model.plagueDamageMod *= scalingFactor                        
+                    this.model.plagueDamageMod *= scalingFactor
             }
         }
         acceptOffer() {
@@ -3592,7 +3599,7 @@ var Incremancer;
             }
         }
         killingBlow(e) {
-            this.killingBlowParts && (this.model.persistentData.parts += this.killingBlowParts * this.partFactory.factoryStats().partsPerSec), this.lastKillingBlow <= 0 && (this.model.addPrestigePoints(Math.round(this.persistent.level*Math.pow(1.00025,this.persistent.level))), this.lastKillingBlow = 20, this.prestigePoints.newPart(e.x, e.y))
+            this.killingBlowParts && (this.model.persistentData.parts += this.killingBlowParts * this.partFactory.factoryStats().partsPerSec), this.lastKillingBlow <= 0 && (this.model.addPrestigePoints(Math.round(this.persistent.level * Math.pow(1.00025, this.persistent.level))), this.lastKillingBlow = 20, this.prestigePoints.newPart(e.x, e.y))
         }
         orbHit(e) {
             if (e.flags.dead && this.killingBlow(e), this.randomSpells.length > 0)
@@ -4985,7 +4992,7 @@ var Incremancer;
                 case h.types.zombieDmgPC:
                     return "+" + n(Math.round(100 * e.effect)) + "% zombie damage";
                 case h.types.zombieHealthPC:
-                    return "+" + n(Math.round(100 * e.effect)) + "% zombie health";                
+                    return "+" + n(Math.round(100 * e.effect)) + "% zombie health";
                 case h.types.bonesRate:
                     return "+" + e.effect + " bones per second";
                 case h.types.brainsRate:
@@ -5160,7 +5167,10 @@ var Incremancer;
             return i.skeletonTimer()
         }, c.skeletonMenu = {
             isShown: !1,
+            isNewGearSetShown: !1,
             tab: "inventory",
+            newGearSetName: "New Set",
+            maxGearSet: 5,
             changeTab(e) {
                 this.tab = e
             },
@@ -5168,33 +5178,95 @@ var Incremancer;
             show() {
                 this.tab = "inventory", this.upgrade = h.prestigeUpgrades.filter((e => 115 == e.id))[0], this.upgrades = Mt, this.isShown = !this.isShown, this.isShown && this.updateEquippedItems()
             },
+            showNewGearSet() {
+                this.newGearSetName = "New Set", this.isNewGearSetShown = !this.isNewGearSetShown, Y.canType = this.isNewGearSetShown
+            },
+            selectGearSet(index) {
+                i.persistent.gearSetEquipped = index;
+
+                if (i.persistent.gearSetEquipped == -1) return;
+
+                i.persistent.gearSets[i.persistent.gearSetEquipped].slots.forEach(((t) => {
+                    i.persistent.items.filter((e => e.s == t.s && (e.q = t.id == e.id)))
+                })), h.applyUpgrades(), this.updateEquippedItems();
+            },
+            canCreateGearSets() { return i.persistent.gearSets.length < this.maxGearSet; },
+            canDeleteGearSets: () => i.persistent.gearSets.length > 0 && i.persistent.gearSetEquipped != -1,
+            gearSets: () => i.persistent.gearSets,
+            gearSetEquipped: () => i.persistent.gearSetEquipped,
+            createGearSet() {
+                if (this.newGearSetName == null) return;
+                let name = this.newGearSetName.replace(/[^\w^\S]*$/gi, '');
+                if (name.length == 0) return;
+                let newGearSet = { name: name, slots: [] };
+                const e = i.persistent.items.filter((e => e.q && e.s == i.lootPositions.helmet.id));
+                e.length > 0 ? newGearSet.slots.push({ s: e[0].s, id: e[0].id }) : newGearSet.slots.push([{
+                    s: i.lootPositions.helmet.id,
+                    id: -1
+                }]);
+                const s = i.persistent.items.filter((e => e.q && e.s == i.lootPositions.sword.id));
+                s.length > 0 ? newGearSet.slots.push({ s: s[0].s, id: s[0].id }) : newGearSet.slots.push({
+                    s: i.lootPositions.sword.id,
+                    id: -2
+                });
+                const a = i.persistent.items.filter((e => e.q && e.s == i.lootPositions.chest.id));
+                a.length > 0 ? newGearSet.slots.push({ s: a[0].s, id: a[0].id }) : newGearSet.slots.push({
+                    s: i.lootPositions.chest.id,
+                    id: -3
+                });
+                const r = i.persistent.items.filter((e => e.q && e.s == i.lootPositions.shield.id));
+                r.length > 0 ? newGearSet.slots.push({ s: r[0].s, id: r[0].id }) : newGearSet.slots.push({
+                    s: i.lootPositions.shield.id,
+                    id: -4
+                });
+                const o = i.persistent.items.filter((e => e.q && e.s == i.lootPositions.gloves.id));
+                o.length > 0 ? newGearSet.slots.push({ s: o[0].s, id: o[0].id }) : newGearSet.slots.push({
+                    s: i.lootPositions.gloves.id,
+                    id: -5
+                });
+                const h = i.persistent.items.filter((e => e.q && e.s == i.lootPositions.legs.id));
+                h.length > 0 ? newGearSet.slots.push({ s: h[0].s, id: h[0].id }) : newGearSet.slots.push({
+                    s: i.lootPositions.legs.id,
+                    id: -6
+                });
+                const l = i.persistent.items.filter((e => e.q && e.s == i.lootPositions.boots.id));
+                l.length > 0 ? newGearSet.slots.push({ s: l[0].s, id: l[0].id }) : newGearSet.slots.push({
+                    s: i.lootPositions.boots.id,
+                    id: -7
+                });
+                i.persistent.gearSets.push(newGearSet), this.selectGearSet(i.persistent.gearSets.length - 1), this.showNewGearSet();
+            },
+            deleteGearSet() {
+                i.persistent.gearSets.splice(i.persistent.gearSetEquipped, 1);
+                i.persistent.gearSets.length > 0 ? this.selectGearSet(0) : this.selectGearSet(-1);
+            },
             acceptOffer() {
                 i.acceptOffer(), this.isShown = !1
             },
-            anotherOffer: () => i.persistent.skeletons > 0 && c.model.persistentData.trophies.length >= (i.persistent.xpRate < 4 ? 20 * i.persistent.xpRate : 
-                                                                                                         i.persistent.xpRate < 8 ? 70 :
-                                                                                                         i.persistent.xpRate < 16 ? 110 :  
-                                                                                                         i.persistent.xpRate < 32 ? 160 : 
-                                                                                                         i.persistent.xpRate < 64 ? 220 : 
-                                                                                                         i.persistent.xpRate < 128 ? 290 : 
-                                                                                                         i.persistent.xpRate < 256 ? 370 :
-                                                                                                         i.persistent.xpRate < 512 ? 460 :
-                                                                                                         i.persistent.xpRate < 1024 ? 560 :
-                                                                                                         i.persistent.xpRate < 2048 ? 670 :
-                                                                                                         i.persistent.xpRate < 4096 ? 790 :
-                                                                                                         720 + ((Math.log2(i.persistent.xpRate)-7)*(Math.log2(i.persistent.xpRate)-7)) * 10),
+            anotherOffer: () => i.persistent.skeletons > 0 && c.model.persistentData.trophies.length >= (i.persistent.xpRate < 4 ? 20 * i.persistent.xpRate :
+                i.persistent.xpRate < 8 ? 70 :
+                    i.persistent.xpRate < 16 ? 110 :
+                        i.persistent.xpRate < 32 ? 160 :
+                            i.persistent.xpRate < 64 ? 220 :
+                                i.persistent.xpRate < 128 ? 290 :
+                                    i.persistent.xpRate < 256 ? 370 :
+                                        i.persistent.xpRate < 512 ? 460 :
+                                            i.persistent.xpRate < 1024 ? 560 :
+                                                i.persistent.xpRate < 2048 ? 670 :
+                                                    i.persistent.xpRate < 4096 ? 790 :
+                                                        720 + ((Math.log2(i.persistent.xpRate) - 7) * (Math.log2(i.persistent.xpRate) - 7)) * 10),
             trophies: () => i.persistent.skeletons > 0 ? ` - ${c.model.persistentData.trophies.length} / ${i.persistent.xpRate < 4 ? 20 * i.persistent.xpRate :
-                                                                                                           i.persistent.xpRate < 8 ? 70:
-                                                                                                           i.persistent.xpRate < 16 ? 110:
-                                                                                                           i.persistent.xpRate < 32 ? 160:
-                                                                                                           i.persistent.xpRate < 64 ? 220:
-                                                                                                           i.persistent.xpRate < 128 ? 290:
-                                                                                                           i.persistent.xpRate < 256 ? 370:
-                                                                                                           i.persistent.xpRate < 512 ? 460:
-                                                                                                           i.persistent.xpRate < 1024 ? 560:
-                                                                                                           i.persistent.xpRate < 2048 ? 670:
-                                                                                                           i.persistent.xpRate < 4096 ? 790:
-                                                                                                           720 + ((Math.log2(i.persistent.xpRate)-7)*(Math.log2(i.persistent.xpRate)-7)) * 10 } Trophies` : "",
+                i.persistent.xpRate < 8 ? 70 :
+                    i.persistent.xpRate < 16 ? 110 :
+                        i.persistent.xpRate < 32 ? 160 :
+                            i.persistent.xpRate < 64 ? 220 :
+                                i.persistent.xpRate < 128 ? 290 :
+                                    i.persistent.xpRate < 256 ? 370 :
+                                        i.persistent.xpRate < 512 ? 460 :
+                                            i.persistent.xpRate < 1024 ? 560 :
+                                                i.persistent.xpRate < 2048 ? 670 :
+                                                    i.persistent.xpRate < 4096 ? 790 :
+                                                        720 + ((Math.log2(i.persistent.xpRate) - 7) * (Math.log2(i.persistent.xpRate) - 7)) * 10} Trophies` : "",
             talentPoints: () => i.talentPoints,
             talentsAssigned: () => i.getUsedPoints(),
             talentValue: e => i.talents[e.id] + " / " + e.maxPoints,
@@ -5321,12 +5393,18 @@ var Incremancer;
                     t.id == e && (s = t)
                 })), -1 == t ? i.destroyItem(s) : (s.s == t && (i.persistent.items.forEach((function (e) {
                     e.s == t && (e.q = !1)
-                })), s.q = !0, h.applyUpgrades()), this.updateEquippedItems())
+                })), s.q = !0, h.applyUpgrades()), this.updateEquippedItems());
+                i.persistent.gearSetEquipped != -1 && -1 != t && i.persistent.gearSets[i.persistent.gearSetEquipped].slots.forEach((function (t) {
+                    t.s == s.s && (t.id = s.id)
+                }));
             },
             equipItem(e) {
                 i.persistent.items.forEach((function (t) {
                     t.s == e.s && (t.q = !1)
-                })), e.q = !0, h.applyUpgrades(), this.updateEquippedItems()
+                })), e.q = !0, h.applyUpgrades(), this.updateEquippedItems();
+                i.persistent.gearSetEquipped != -1 && i.persistent.gearSets[i.persistent.gearSetEquipped].slots.forEach((function (t) {
+                    t.s == e.s && (t.id = e.id)
+                }));
             },
             trashAll() {
                 c.confirmMessage = "Are you sure you want to destroy all non-equipped items? You will earn " + n(i.xpTotal()) + " xp", c.confirmCallback = function () {
