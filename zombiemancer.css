@@ -500,6 +500,18 @@ div.generator-progress.active > span.percent {
   }
 }
 
+@media screen and (min-width: 1800px) {
+  div.shop div.tabs button {
+    margin-right: 0;
+  }
+  div.start-game button, div.end-level button, div.shop button {
+    padding: 6px 6px;
+  }
+  div.level-select {
+    width:60%;
+  }
+}
+
 @media screen and (max-width: 1800px) {
   div.shop div.tabs button {
     margin-right: 0;
@@ -756,15 +768,15 @@ div.skeleton > div.lvl.dead {
   width: 20%;
 }
 .inventory .equipped {
-  width: 40%;
+  width: 30%;
 }
 .inventory .items {
-  width:40%;
+  width: 50%;
 }
 
 .inventory .item {
-  width:4em;
-  height:4em;
+  width:3.5em;
+  height:3.5em;
   border:1px solid white;
   margin: 0.5em;
   position: relative;
