@@ -95,9 +95,11 @@
               </button>
             </li>
           </ul>
+          <br />
+          <button ng-click="zm.skeletonMenu.resetFilter()">Reset Filters</button>
         </div>
         <div class="items">
-          <div class="item {{zm.skeletonMenu.itemClass(item)}} {{zm.skeletonMenu.itemType(item)}}" ng-if="!zm.skeletonMenu.isFiltered(item)" ng-repeat="item in zm.skeletonMenu.inventoryItems() track by item.id" ng-mousemove="zm.moveTooltip($event, $event.currentTarget);" 
+          <div class="item {{zm.skeletonMenu.itemClass(item)}} {{zm.skeletonMenu.itemType(item)}}" ng-if="zm.skeletonMenu.isFiltered(item)" ng-repeat="item in zm.skeletonMenu.inventoryItems() track by item.id" ng-mousemove="zm.moveTooltip($event, $event.currentTarget);" 
             draggable-item="true" drag-object="item" ng-click="zm.skeletonMenu.equipItem(item)">
             <div class="icon"></div>
             <div class="level" ng-if="item.l">{{item.l}}</div>
