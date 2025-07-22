@@ -355,35 +355,35 @@ div.spells > button.spell span.se {
 }
 
 div.spells > button.spell span.se.detonate {
-  background: url("/images/detonate.png") no-repeat center/contain;
+  background: url("images/detonate.png") no-repeat center/contain;
 }
 
 div.spells > button.spell span.se.earth-freeze {
-  background: url("/images/earthfreeze.png") no-repeat center/contain;
+  background: url("images/earthfreeze.png") no-repeat center/contain;
 }
 
 div.spells > button.spell span.se.energy-charge {
-  background: url("/images/energy-charge.png") no-repeat center/contain;
+  background: url("images/energy-charge.png") no-repeat center/contain;
 }
 
 div.spells > button.spell span.se.gigazombies {
-  background: url("/images/gigazombies.png") no-repeat center/contain;
+  background: url("images/gigazombies.png") no-repeat center/contain;
 }
 
 div.spells > button.spell span.se.incinerate {
-  background: url("/images/incinerate.png") no-repeat center/contain;
+  background: url("images/incinerate.png") no-repeat center/contain;
 }
 
 div.spells > button.spell span.se.pandemic {
-  background: url("/images/pandemic.png") no-repeat center/contain;
+  background: url("images/pandemic.png") no-repeat center/contain;
 }
 
 div.spells > button.spell span.se.time-warp {
-  background: url("/images/time-warp.png") no-repeat center/contain;
+  background: url("images/time-warp.png") no-repeat center/contain;
 }
 
 div.spells > button.spell span.se.part-storm {
-  background: url("/images/part-storm.png") no-repeat center/contain;
+  background: url("images/part-storm.png") no-repeat center/contain;
 }
 
 
@@ -947,35 +947,35 @@ div.skeleton > div.lvl.dead {
 }
 
 .inventory .item .spell.detonate {
-  background: url("/images/detonate.png") no-repeat center/contain;
+  background: url("images/detonate.png") no-repeat center/contain;
 }
 
 .inventory .item .spell.earth-freeze {
-  background: url("/images/earthfreeze.png") no-repeat center/contain;
+  background: url("images/earthfreeze.png") no-repeat center/contain;
 }
 
 .inventory .item .spell.energy-charge {
-  background: url("/images/energy-charge.png") no-repeat center/contain;
+  background: url("images/energy-charge.png") no-repeat center/contain;
 }
 
 .inventory .item .spell.gigazombies {
-  background: url("/images/gigazombies.png") no-repeat center/contain;
+  background: url("images/gigazombies.png") no-repeat center/contain;
 }
 
 .inventory .item .spell.incinerate {
-  background: url("/images/incinerate.png") no-repeat center/contain;
+  background: url("images/incinerate.png") no-repeat center/contain;
 }
 
 .inventory .item .spell.pandemic {
-  background: url("/images/pandemic.png") no-repeat center/contain;
+  background: url("images/pandemic.png") no-repeat center/contain;
 }
 
 .inventory .item .spell.time-warp {
-  background: url("/images/time-warp.png") no-repeat center/contain;
+  background: url("images/time-warp.png") no-repeat center/contain;
 }
 
 .inventory .item .spell.part-storm {
-  background: url("/images/part-storm.png") no-repeat center/contain;
+  background: url("images/part-storm.png") no-repeat center/contain;
 }
 
 .filter-toggle {
@@ -1080,35 +1080,35 @@ div.skeleton > div.lvl.dead {
 
 
 .inventory .items-filter li .icon.detonate {
-  background: url("/images/detonate.png") no-repeat center/contain;
+  background: url("images/detonate.png") no-repeat center/contain;
 }
 
 .inventory .items-filter li .icon.earth-freeze {
-  background: url("/images/earthfreeze.png") no-repeat center/contain;
+  background: url("images/earthfreeze.png") no-repeat center/contain;
 }
 
 .inventory .items-filter li .icon.energy-charge {
-  background: url("/images/energy-charge.png") no-repeat center/contain;
+  background: url("images/energy-charge.png") no-repeat center/contain;
 }
 
 .inventory .items-filter li .icon.gigazombies {
-  background: url("/images/gigazombies.png") no-repeat center/contain;
+  background: url("images/gigazombies.png") no-repeat center/contain;
 }
 
 .inventory .items-filter li .icon.incinerate {
-  background: url("/images/incinerate.png") no-repeat center/contain;
+  background: url("images/incinerate.png") no-repeat center/contain;
 }
 
 .inventory .items-filter li .icon.pandemic {
-  background: url("/images/pandemic.png") no-repeat center/contain;
+  background: url("images/pandemic.png") no-repeat center/contain;
 }
 
 .inventory .items-filter li .icon.time-warp {
-  background: url("/images/time-warp.png") no-repeat center/contain;
+  background: url("images/time-warp.png") no-repeat center/contain;
 }
 
 .inventory .items-filter li .icon.part-storm {
-  background: url("/images/part-storm.png") no-repeat center/contain;
+  background: url("images/part-storm.png") no-repeat center/contain;
 }
 
 .inventory .items-filter li .icon.helmet {
