@@ -3766,6 +3766,28 @@ var Incremancer;
                 }
             return t
         }
+        getSpecialEffectsName(e) {
+            const t = [];
+            if (e.se)
+                for (let s = 0; s < e.se.length; s++) {
+                    const i = this.spells.spells.filter((t => t.id == e.se[s]))[0];
+                    t.push(i.name.replace(" ", '-'))
+                }
+            return t
+        }
+        getSpecialEffectsList() {
+            const t = [];
+                for (let s = 0; s < this.spells.spells.length; s++) {
+                    t.push(this.spells.spells[s])
+                }
+            return t
+        }
+        getRarityList() {
+            return [this.rarity.common, this.rarity.rare, this.rarity.epic, this.rarity.legendary, this.rarity.ancient, this.rarity.divine]
+        }
+        getTypeList() {
+            return [this.lootPositions.helmet.id, this.lootPositions.chest.id, this.lootPositions.gloves.id, this.lootPositions.legs.id, this.lootPositions.boots.id, this.lootPositions.sword.id, this.lootPositions.shield.id]
+        }
         testForLoot() {
             if (this.persistent.skeletons > 0 && Math.random() < this.lootChance) {
                 const e = this.generateLoot(this.persistent.level);
@@ -5168,9 +5190,11 @@ var Incremancer;
         }, c.skeletonMenu = {
             isShown: !1,
             isNewGearSetShown: !1,
+            showFilters: !1,
             tab: "inventory",
             newGearSetName: "New Set",
             maxGearSet: 5,
+            itemsFilters: {se:[], r:[], t:[]},
             changeTab(e) {
                 this.tab = e
             },
@@ -5239,6 +5263,18 @@ var Incremancer;
             deleteGearSet() {
                 i.persistent.gearSets.splice(i.persistent.gearSetEquipped, 1);
                 i.persistent.gearSets.length > 0 ? this.selectGearSet(0) : this.selectGearSet(-1);
+            },
+            filterItemsBySpecialEffect(i) {
+                this.itemsFilters.se.includes(i) ? this.itemsFilters.se.splice(this.itemsFilters.se.indexOf(i), 1) : this.itemsFilters.se.push(i);
+            },
+            filterItemsByRarity(i) {
+                this.itemsFilters.r.includes(i) ? this.itemsFilters.r.splice(this.itemsFilters.r.indexOf(i), 1) : this.itemsFilters.r.push(i);
+            },
+            filterItemsByType(i) {
+                this.itemsFilters.t.includes(i) ? this.itemsFilters.t.splice(this.itemsFilters.t.indexOf(i), 1) : this.itemsFilters.t.push(i);
+            },
+            isFiltered(i) {
+                return (i.se.length > 0 ? this.itemsFilters.se.includes(i.se[0]) : false) || this.itemsFilters.r.includes(i.r) || this.itemsFilters.t.includes(i.s);
             },
             acceptOffer() {
                 i.acceptOffer(), this.isShown = !1
@@ -5360,6 +5396,29 @@ var Incremancer;
             },
             itemStats: e => i.getLootStats(e),
             itemEffects: e => i.getSpecialEffects(e),
+            itemEffectsNamesClass: e => i.getSpecialEffectsName(e).join(" ").toLowerCase(),
+            itemEffectsList: () => i.getSpecialEffectsList(),
+            itemEffectsListClass: (e) => e.replace(" ", '-').toLowerCase(),
+            itemRarityList: () => i.getRarityList(),
+            itemRarityClass: e => i.getLootClass({r: e}),
+            itemTypeList: () => i.getTypeList(),
+            itemTypeClass(e) { return this.itemType({s: e}); },
+            itemRarityName(r) {
+                switch (r) {
+                    case i.rarity.common:
+                        return "Common";
+                    case i.rarity.rare:
+                        return "Rare";
+                    case i.rarity.epic:
+                        return "Epic";
+                    case i.rarity.legendary:
+                        return "Legendary";
+                    case i.rarity.ancient:
+                        return "Ancient";
+                    case i.rarity.divine:
+                        return "Divine"
+                }
+            },
             itemType(e) {
                 switch (e.s) {
                     case -1:
