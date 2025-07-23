@@ -5323,6 +5323,7 @@ var Incremancer;
             xpPercent: () => Math.round(100 * Math.min(1, c.skeleton().xp / i.xpForNextLevel())),
             xpForNextLevel: () => i.xpForNextLevel(),
             xpRate: () => 100 * i.persistent.xpRate,
+            prestigePointsPerKill: () => (1.00025 ** c.skeleton().level) * c.skeleton().level,
             isAlive: () => i.isAlive(),
             timer: () => Math.ceil(i.skeletonTimer()),
             updateEquippedItems() {
