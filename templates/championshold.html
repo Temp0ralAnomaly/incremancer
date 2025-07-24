@@ -95,9 +95,11 @@
               </button>
             </li>
           </ul>
+          <br />
+          <button ng-click="zm.skeletonMenu.resetFilter()">Reset Filters</button>
         </div>
         <div class="items">
-          <div class="item {{zm.skeletonMenu.itemClass(item)}} {{zm.skeletonMenu.itemType(item)}}" ng-if="!zm.skeletonMenu.isFiltered(item)" ng-repeat="item in zm.skeletonMenu.inventoryItems() track by item.id" ng-mousemove="zm.moveTooltip($event, $event.currentTarget);" 
+          <div class="item {{zm.skeletonMenu.itemClass(item)}} {{zm.skeletonMenu.itemType(item)}}" ng-if="zm.skeletonMenu.isFiltered(item)" ng-repeat="item in zm.skeletonMenu.inventoryItems() track by item.id" ng-mousemove="zm.moveTooltip($event, $event.currentTarget);" 
             draggable-item="true" drag-object="item" ng-click="zm.skeletonMenu.equipItem(item)">
             <div class="icon"></div>
             <div class="level" ng-if="item.l">{{item.l}}</div>
@@ -113,7 +115,7 @@
         </div>
       </div>
       <p>Level: {{zm.skeleton().level}} - {{zm.skeleton().xp|whole}} / {{zm.skeletonMenu.xpForNextLevel()|whole}} xp ({{zm.skeletonMenu.xpRate()}}% xp rate)<br/>Earn xp by killing humans while the Champion is alive, higher level humans reward more xp</p>
-      <p>Increases zombie health and damage by {{zm.skeleton().level}}%, all resource generation by {{zm.skeleton().level}}%,<br/>and receive {{zm.skeleton().level}} prestige points when the Skeleton Champion lands a killing blow. (20 second cooldown)</p>
+      <p>Increases zombie health and damage by {{zm.skeleton().level}}%, all resource generation by {{zm.skeleton().level}}%,<br/>and receive {{zm.skeletonMenu.prestigePointsPerKill()|whole}} prestige points when the Skeleton Champion lands a killing blow. (20 second cooldown)</p>    
     </div>
   </div>
   <div ng-if="zm.skeletonMenu.tab == 'talents'" class="talents">

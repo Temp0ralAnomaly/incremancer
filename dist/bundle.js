@@ -3645,7 +3645,7 @@ var Incremancer;
             return this.model.runeEffects.critChance > 0 && Math.random() < this.model.runeEffects.critChance && (t *= this.model.runeEffects.critDamage, He(e.x, e.y - 10, t)), t
         }
         applyItemUpgrades() {
-            this.model = ne.getInstance(), this.moveSpeed = 40, this.respawnTime = 10, this.randomSpells = [], this.persistent.items.filter((e => e.q)).forEach((e => {
+            this.model = ne.getInstance(), this.moveSpeed = (40 + this.model.SkeleMoveMod), this.respawnTime = 10, this.randomSpells = [], this.persistent.items.filter((e => e.q)).forEach((e => {
                 e.e.forEach((t => {
                     switch (t) {
                         case this.stats.respawnTime.id:
@@ -5274,8 +5274,9 @@ var Incremancer;
                 this.itemsFilters.t.includes(i) ? this.itemsFilters.t.splice(this.itemsFilters.t.indexOf(i), 1) : this.itemsFilters.t.push(i);
             },
             isFiltered(i) {
-                return (i.se.length > 0 ? this.itemsFilters.se.includes(i.se[0]) : false) || this.itemsFilters.r.includes(i.r) || this.itemsFilters.t.includes(i.s);
+                return (this.itemsFilters.se.length > 0 ? i.se.length > 0 ? this.itemsFilters.se.includes(i.se[0]) : false : true) && (this.itemsFilters.r.length > 0 ? this.itemsFilters.r.includes(i.r) : true) && (this.itemsFilters.t.length > 0 ? this.itemsFilters.t.includes(i.s) : true);
             },
+            resetFilter() {this.itemsFilters.se = [], this.itemsFilters.r = [], this.itemsFilters.t = []},
             acceptOffer() {
                 i.acceptOffer(), this.isShown = !1
             },
@@ -5322,6 +5323,7 @@ var Incremancer;
             xpPercent: () => Math.round(100 * Math.min(1, c.skeleton().xp / i.xpForNextLevel())),
             xpForNextLevel: () => i.xpForNextLevel(),
             xpRate: () => 100 * i.persistent.xpRate,
+            prestigePointsPerKill: () => (1.00025 ** c.skeleton().level) * c.skeleton().level,
             isAlive: () => i.isAlive(),
             timer: () => Math.ceil(i.skeletonTimer()),
             updateEquippedItems() {
