@@ -5274,7 +5274,7 @@ var Incremancer;
                 this.itemsFilters.t.includes(i) ? this.itemsFilters.t.splice(this.itemsFilters.t.indexOf(i), 1) : this.itemsFilters.t.push(i);
             },
             isFiltered(i) {
-                return (i.se.length > 0 ? (this.itemsFilters.se.length > 0 ? this.itemsFilters.se.includes(i.se[0]) : true) : false) && (this.itemsFilters.r.length > 0 ? this.itemsFilters.r.includes(i.r) : true) && (this.itemsFilters.t.length > 0 ? this.itemsFilters.t.includes(i.s) : true);
+                return (this.itemsFilters.se.length > 0 ? i.se.length > 0 ? this.itemsFilters.se.includes(i.se[0]) : false : true) && (this.itemsFilters.r.length > 0 ? this.itemsFilters.r.includes(i.r) : true) && (this.itemsFilters.t.length > 0 ? this.itemsFilters.t.includes(i.s) : true);
             },
             resetFilter() {this.itemsFilters.se = [], this.itemsFilters.r = [], this.itemsFilters.t = []},
             acceptOffer() {
