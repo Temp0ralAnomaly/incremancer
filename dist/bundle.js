@@ -1919,17 +1919,17 @@ var Incremancer;
                 case this.types.spikeDelay:
                     return void (this.gameModel.spikeDelay -= e.effect * t);
                 case this.types.bonesGainPC:
-                    return void (this.gameModel.bonesPCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.bonesPCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.partsGainPC:
-                    return void (this.gameModel.partsPCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.partsPCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.bloodGainPC:
-                    return void (this.gameModel.bloodPCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.bloodPCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.bloodStoragePC:
-                    return void (this.gameModel.bloodStorePCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.bloodStorePCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.brainsGainPC:
-                    return void (this.gameModel.brainsPCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.brainsPCMod *= t > e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.brainsStoragePC:
-                    return void (this.gameModel.brainsStorePCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.brainsStorePCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.zombieDmgPC:
                     return void (this.gameModel.zombieDamagePCMod *= Math.pow(1 + e.effect, t));
                 case this.types.zombieHealthPC:
@@ -1988,6 +1988,19 @@ var Incremancer;
                 case this.types.talentPoint:
                     return void (this.skeleton.talentPoints = t)
             }
+        }
+        calculateWithPrestigeRankBonus(e, t) {
+            if (t <= 60) {
+                return Math.pow(1 + e.effect, t);
+            }
+
+            let multiplier = Math.pow(1 + e.effect, 60);
+
+            for (let i = 1; i <= t - 60; i++) {
+                multiplier *= 1 + e.effect * Math.pow(1 + 0.05, i);
+            }
+
+            return multiplier;
         }
         applyConstructionUpgrade(e) {
             switch (e.type) {
