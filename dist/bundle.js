@@ -1919,17 +1919,17 @@ var Incremancer;
                 case this.types.spikeDelay:
                     return void (this.gameModel.spikeDelay -= e.effect * t);
                 case this.types.bonesGainPC:
-                    return void (this.gameModel.bonesPCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.bonesPCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.partsGainPC:
-                    return void (this.gameModel.partsPCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.partsPCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.bloodGainPC:
-                    return void (this.gameModel.bloodPCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.bloodPCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.bloodStoragePC:
-                    return void (this.gameModel.bloodStorePCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.bloodStorePCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.brainsGainPC:
-                    return void (this.gameModel.brainsPCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.brainsPCMod *= t > e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.brainsStoragePC:
-                    return void (this.gameModel.brainsStorePCMod *= Math.pow(1 + e.effect, t));
+                    return void (this.gameModel.brainsStorePCMod *= e.costType == this.costs.prestigePoints ? this.calculateWithPrestigeRankBonus(e, t) : Math.pow(1 + e.effect, t));
                 case this.types.zombieDmgPC:
                     return void (this.gameModel.zombieDamagePCMod *= Math.pow(1 + e.effect, t));
                 case this.types.zombieHealthPC:
@@ -1988,6 +1988,19 @@ var Incremancer;
                 case this.types.talentPoint:
                     return void (this.skeleton.talentPoints = t)
             }
+        }
+        calculateWithPrestigeRankBonus(e, t) {
+            if (t <= 60) {
+                return Math.pow(1 + e.effect, t);
+            }
+
+            let multiplier = Math.pow(1 + e.effect, 60);
+
+            for (let i = 1; i <= t - 60; i++) {
+                multiplier *= 1 + e.effect * Math.pow(1 + 0.05, i);
+            }
+
+            return multiplier;
         }
         applyConstructionUpgrade(e) {
             switch (e.type) {
@@ -5460,6 +5473,10 @@ var Incremancer;
                 }));
             },
             equipItem(e) {
+                if(this.isShown && Y.shift) {
+                    this.itemDropped(e.id, -1);
+                    return;
+                }
                 i.persistent.items.forEach((function (t) {
                     t.s == e.s && (t.q = !1)
                 })), e.q = !0, h.applyUpgrades(), this.updateEquippedItems();
@@ -5471,7 +5488,7 @@ var Incremancer;
                 c.confirmMessage = "Are you sure you want to destroy all non-equipped items? You will earn " + n(i.xpTotal()) + " xp", c.confirmCallback = function () {
                     c.confirmCallback = !1, i.destroyAllItems()
                 }
-            }
+            },
         }, s.ready((function () {
             e.updatePromise = t(u, 200), h.angularModel = c, kt()
         }))
@@ -5539,6 +5556,17 @@ var Incremancer;
                 })), s.bind("dragend", (function (t) {
                     document.getElementById("champ-hold").classList.toggle("no-tooltip"), angular.element(s)[0].style.opacity = "", e.$emit("item-drag-end", r)
                 })))
+            }
+        }
+    }]).directive('shiftDeleteItem', ['$rootScope', function(e) {
+        return {
+            restrict: "A",
+            link: function (t, s, i, a) {
+                s.bind('mouseenter', (function () {
+                    Y.shift && s.addClass('shift-trash');
+                })),s.bind('mouseleave', (function () {
+                    s.removeClass('shift-trash');
+                }));
             }
         }
     }]).directive("droppableTarget", ["$rootScope", function (e) {
