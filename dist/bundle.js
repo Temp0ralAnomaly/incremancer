@@ -3480,14 +3480,16 @@ var Incremancer;
                 epic: 3,
                 legendary: 4,
                 ancient: 5,
-                divine: 6
+                divine: 6,
+                chaos: 7
             }, this.prefixes = {
                 commonQuality: ["Wooden", "Sturdy", "Rigid", "Iron", "Rusty", "Flimsy", "Battered", "Damaged", "Used", "Stained", "Training"],
                 rareQuality: ["Steel", "Shiny", "Polished", "Forged", "Plated", "Bronze", "Reinforced", "Veteran's", "Reliable"],
                 epicQuality: ["Antique", "Ancient", "Famous", "Bejeweled", "Notorious", "Historic", "Mythical", "Extraordinary"],
                 legendaryQuality: ["Monstrous", "Diabolical", "Withering", "Terrible", "Demoniacal"],
                 ancientQuality: ["Grim", "Miserable", "Luxurious"],
-                divineQuality: ["Divine"]
+                divineQuality: ["Divine"],
+                chaosQuality: ["Chaotic", "Corrupted", "Fractured", "Twisted"]
             }, this.stats = {
                 respawnTime: {
                     id: 1,
@@ -3704,6 +3706,9 @@ var Incremancer;
                     break;
                 case this.rarity.divine:
                     t = this.prefixes.divineQuality[e.p]
+                    break;
+                case this.rarity.chaos:
+                    t = this.prefixes.chaosQuality[e.p]
             }
             let s = "";
             switch (e.s) {
@@ -3744,6 +3749,8 @@ var Incremancer;
                     return "ancient";
                 case this.rarity.divine:
                     return "divine"
+                case this.rarity.chaos:
+                    return "chaos"
             }
         }
         getLootStats(e) {
@@ -3796,7 +3803,7 @@ var Incremancer;
             return t
         }
         getRarityList() {
-            return [this.rarity.common, this.rarity.rare, this.rarity.epic, this.rarity.legendary, this.rarity.ancient, this.rarity.divine]
+            return [this.rarity.common, this.rarity.rare, this.rarity.epic, this.rarity.legendary, this.rarity.ancient, this.rarity.divine, this.rarity.chaos]
         }
         getTypeList() {
             return [this.lootPositions.helmet.id, this.lootPositions.chest.id, this.lootPositions.gloves.id, this.lootPositions.legs.id, this.lootPositions.boots.id, this.lootPositions.sword.id, this.lootPositions.shield.id]
@@ -3811,19 +3818,22 @@ var Incremancer;
             const t = Math.round(6 * Math.random()) + 1;
             let s = this.rarity.common;
             const i = [];
-            if (Math.random() < .2 * this.lootChanceMod && (s = this.rarity.rare, Math.random() < .2 * this.lootChanceMod && (s = this.rarity.epic, Math.random() < .1 * this.lootChanceMod && (s = this.rarity.legendary, Math.random() < .1 * this.lootChanceMod && (s = this.rarity.ancient, Math.random() < .1 * this.lootChanceMod))))) {
+            if (Math.random() < .2 * this.lootChanceMod && (s = this.rarity.rare, Math.random() < .2 * this.lootChanceMod && (s = this.rarity.epic, Math.random() < .1 * this.lootChanceMod && (s = this.rarity.legendary, Math.random() < .1 * this.lootChanceMod && (s = this.rarity.ancient, Math.random() < .1 * this.lootChanceMod))))) 
+            {
                 s = this.rarity.divine;
                 const e = a(this.spells.spells, Math.random());
-                i.push(e.id)
+                i.push(e.id);
             }
             if (s == this.rarity.legendary) {
                 const e = a(this.spells.spells, Math.random());
                 i.push(e.id)
             }
             if (s == this.rarity.ancient) {
+                s = Math.random() < .2 ? this.rarity.chaos : this.rarity.ancient;
                 const e = a(this.spells.spells, Math.random());
                 i.push(e.id)
             }
+ 
             let r = 0;
             switch (s) {
                 case this.rarity.common:
@@ -3843,13 +3853,25 @@ var Incremancer;
                     break;
                 case this.rarity.divine:
                     r = Math.floor(Math.random() * this.prefixes.divineQuality.length)
+                    break;
+                case this.rarity.chaos:
+                    r = Math.floor(Math.random() * this.prefixes.chaosQuality.length)
             }
-            const n = [Math.random() > .5 ? this.stats.zombieHealth.id : this.stats.zombieDamage.id];
-            for (let e = 0; e < s - 1; e++) {
-                let e = Math.ceil(6 * Math.random());
-                for (; n.includes(e);) e = Math.ceil(6 * Math.random());
-                n.push(e)
+
+            const n = [];
+            if (s == this.rarity.chaos) {
+                for (let e = 0; e < 5; e++) {
+                    n.push(Math.ceil(6 * Math.random()))
+                }
+            } else {
+                n[0] = Math.random() > .5 ? this.stats.zombieHealth.id : this.stats.zombieDamage.id;
+                for (let e = 0; e < s - 1; e++) {
+                    let e = Math.ceil(6 * Math.random());
+                    for (; n.includes(e);) e = Math.ceil(6 * Math.random());
+                    n.push(e)
+                }
             }
+            
             return {
                 id: this.persistent.currItemId++,
                 l: e,
@@ -3866,10 +3888,10 @@ var Incremancer;
             for (let t = 0; t < this.persistent.items.length; t++) this.persistent.items[t].id === e.id && this.persistent.items.splice(t, 1)
         }
         destroyAllItems() {
-            this.addXp(this.xpForItems() - this.xpForAncient() - this.xpForDivine()), this.persistent.items = this.persistent.items.filter((e => e.q || (e.r == this.rarity.legendary || e.r == this.rarity.ancient || e.r == this.rarity.divine)))
+            this.addXp(this.xpForItems() - this.xpForAncient() - this.xpForDivine() - this.xpForChaos()), this.persistent.items = this.persistent.items.filter((e => e.q || (e.r == this.rarity.legendary || e.r == this.rarity.ancient || e.r == this.rarity.divine || e.r == this.rarity.chaos)))
         }
         destroyAllItemsLegendary() {
-            this.addXp(this.xpForLegendary()), this.persistent.items = this.persistent.items.filter((e => e.q || (e.r == this.rarity.common || e.r == this.rarity.rare || e.r == this.rarity.epic || e.r == this.rarity.ancient || e.r == this.rarity.divine)))
+            this.addXp(this.xpForLegendary()), this.persistent.items = this.persistent.items.filter((e => e.q || (e.r == this.rarity.common || e.r == this.rarity.rare || e.r == this.rarity.epic || e.r == this.rarity.ancient || e.r == this.rarity.divine || e.r == this.rarity.chaos)))
         }
         xpForItems() {
             let e = 0;
@@ -3897,9 +3919,14 @@ var Incremancer;
                 e += t.l * t.r * 10
             })), e
         }
-
+        xpForChaos() {
+            let e = 0;
+            return this.persistent.items.filter(e => !e.q && e.r == this.rarity.chaos).forEach((function (t) {
+                e += t.l * t.r * 10
+            })), e
+        }
         xpTotal() {
-            return (this.xpForItems() - this.xpForAncient - this.xpForDivine)
+            return (this.xpForItems() - this.xpForAncient - this.xpForDivine - this.xpForChaos)
         }
     }
     class Ue {
@@ -5406,6 +5433,8 @@ var Incremancer;
                         return "Ancient level " + e.l + " " + this.itemType(e);
                     case i.rarity.divine:
                         return "Divine level " + e.l + " " + this.itemType(e)
+                    case i.rarity.chaos:
+                        return "Chaos level " + e.l + " " + this.itemType(e)
                 }
                 if (-1 == e.s) return "Click this to destroy all non-equipped items (legendary items will not be automatically destroyed). Or drag items here to destroy them."
             },
@@ -5432,6 +5461,8 @@ var Incremancer;
                         return "Ancient";
                     case i.rarity.divine:
                         return "Divine"
+                    case i.rarity.chaos:
+                        return "Chaos"
                 }
             },
             itemType(e) {
