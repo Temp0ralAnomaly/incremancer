@@ -294,9 +294,15 @@ var Incremancer;
                 }), (function () {
                     ne.getInstance().gameSpeed = 1
                 })), new W(2, "Energy Charge", "5x Energy rate for 20 seconds, cost 50 energy", "", 160, 20, 50, (function () {
-                    ne.getInstance().energySpellMultiplier = 5
+                    ne.getInstance().energySpellMultiplier = 5;
+                    if (ne.getInstance().persistentData.autoMaxHarpies) {
+                       ne.getInstance().setMaxHarpies();
+                    }
                 }), (function () {
-                    ne.getInstance().energySpellMultiplier = 1
+                    ne.getInstance().energySpellMultiplier = 1;
+                    if (ne.getInstance().persistentData.autoMaxHarpies) {
+                       ne.getInstance().setMaxHarpies();
+                    }
                 })), new W(3, "Detonate", "Turns your zombies into fast moving living bombs, cost 69 energy... nice", "", 80, 8, 69, (function () {
                     (new q).zombies.detonate = !0
                 }), (function () {
@@ -1137,6 +1143,7 @@ var Incremancer;
                     trophies: [],
                     vipEscaped: [],
                     autoRelease: !1,
+                    autoMaxHarpies: !1,
                     skeleton: null,
                     skeletonTalents: []
                 }
@@ -1260,6 +1267,10 @@ var Incremancer;
                 brains: this.zombiesInCages,
                 bones: 3 * this.zombiesInCages
             }
+        }
+        setMaxHarpies() {
+            let e = Math.floor(this.getEnergyRate() + this.persistentData.harpies);
+            (e >= 0 && e < this.persistentData.harpies || this.getEnergyRate() >= 1 && e > 0) && (this.persistentData.harpies = e);
         }
         startLevel(e) {
             this.level = e, this.startGame()
