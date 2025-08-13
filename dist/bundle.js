@@ -295,12 +295,12 @@ var Incremancer;
                     ne.getInstance().gameSpeed = 1
                 })), new W(2, "Energy Charge", "5x Energy rate for 20 seconds, cost 50 energy", "", 160, 20, 50, (function () {
                     ne.getInstance().energySpellMultiplier = 5;
-                    if (ne.getInstance().persistentData.autoMaxHarpies) {
+                    if (ne.getInstance().persistentData.autoMaxHarpies && ne.getInstance().constructions.aviary) {
                        ne.getInstance().setMaxHarpies();
                     }
                 }), (function () {
                     ne.getInstance().energySpellMultiplier = 1;
-                    if (ne.getInstance().persistentData.autoMaxHarpies) {
+                    if (ne.getInstance().persistentData.autoMaxHarpies && ne.getInstance().constructions.aviary) {
                        ne.getInstance().setMaxHarpies();
                     }
                 })), new W(3, "Detonate", "Turns your zombies into fast moving living bombs, cost 69 energy... nice", "", 80, 8, 69, (function () {
