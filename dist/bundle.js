@@ -1731,8 +1731,9 @@ var Incremancer;
                 blood: 4500
             }, 30, 1, 15, 1, 211, "Build an additional cage to contain surplus zombies once a town is defeated.", null),
             new he(223, "Sacrificial Altar", this.constructionTypes.sacrificialAltar, {
-                bones: 6e3,
-                blood: 9e3
+                bones: 7500,
+                blood: 25e4,
+                brains: 2e3
             }, 30, 1, 1, 1, 217, "Build a sacrificial altar to automatically offer caged zombies in exchange for blood, brains, and bones.", "Auto Sacrifice available in the graveyard menu!"),
             new he(218, "Plague Laboratory", this.constructionTypes.plagueLaboratory, {
                 brains: 25e3,
