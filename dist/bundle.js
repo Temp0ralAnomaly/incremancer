@@ -1143,6 +1143,7 @@ var Incremancer;
                     trophies: [],
                     vipEscaped: [],
                     autoRelease: !1,
+                    autoSacrifice: !1,
                     autoMaxHarpies: !1,
                     skeleton: null,
                     skeletonTalents: []
@@ -1276,10 +1277,10 @@ var Incremancer;
             this.level = e, this.startGame()
         }
         startGame() {
-            this.currentState = this.states.playingLevel, this.setupLevel(), this.updatePlayingLevel(), this.persistentData.autoRelease && this.releaseCagedZombies()
+            this.currentState = this.states.playingLevel, this.setupLevel(), this.updatePlayingLevel(), this.persistentData.autoRelease ? this.releaseCagedZombies() : this.persistentData.autoSacrifice && this.sacrificeCagedZombies()
         }
         nextLevel() {
-            this.level++, this.currentState = this.states.playingLevel, this.setupLevel(), this.updatePlayingLevel(), this.persistentData.autoRelease && this.releaseCagedZombies()
+            this.level++, this.currentState = this.states.playingLevel, this.setupLevel(), this.updatePlayingLevel(), this.persistentData.autoRelease ? this.releaseCagedZombies() : this.persistentData.autoSacrifice && this.sacrificeCagedZombies()
         }
         setupLevel() {
             this.endLevelTimer = this.endLevelDelay, N(), this.particles.initialize(), this.humans.populate(), this.zombies.populate(), this.graveyard.initialize(), setTimeout(Z, 10), this.upgrades.applyUpgrades(), this.upgrades.updateRuneEffects(), this.partFactory.applyGenerators(), this.creatures.populate(), this.skeleton.populate(), this.addStartLevelResources(), this.populateStats()
@@ -1655,7 +1656,8 @@ var Incremancer;
                 HybridLab: "HybridLab",
                 AdvHybridLab: "AdvHybridLab",
                 MiniAssembLine: "MiniAssembLine",
-                TechThinkTank: "TechThinkTank"
+                TechThinkTank: "TechThinkTank",
+                sacrificialAltar: "sacrificialAltar"
             }, this.constructionUpgrades = [new he(201, "Cursed Graveyard", this.constructionTypes.graveyard, {
                 blood: 1800
             }, 30, 1, 1, 1, null, "Construct a Cursed Graveyard in the town that will automatically spawn zombies when your energy is at its maximum!", "Graveyard menu now available!"),
@@ -1728,6 +1730,10 @@ var Incremancer;
                 bones: 3e3,
                 blood: 4500
             }, 30, 1, 15, 1, 211, "Build an additional cage to contain surplus zombies once a town is defeated.", null),
+            new he(223, "Sacrificial Altar", this.constructionTypes.sacrificialAltar, {
+                bones: 6e3,
+                blood: 9e3
+            }, 30, 1, 1, 1, 217, "Build a sacrificial altar to automatically offer caged zombies in exchange for blood, brains, and bones.", "Auto Sacrifice available in the graveyard menu!"),
             new he(218, "Plague Laboratory", this.constructionTypes.plagueLaboratory, {
                 brains: 25e3,
                 blood: 1e6
@@ -2050,6 +2056,8 @@ var Incremancer;
                     return void (this.gameModel.constructions.aviary = 1);
                 case this.constructionTypes.zombieCage:
                     return void (this.gameModel.zombieCages += e.effect * e.rank);
+                case this.constructionTypes.sacrificialAltar:
+                    return void (this.gameModel.constructions.sacrificialAltar = 1);
                 case this.constructionTypes.partFactory:
                     return this.gameModel.constructions.partFactory = !0, void (this.gameModel.constructions.factory = !0);
                 case this.constructionTypes.monsterFactory:
