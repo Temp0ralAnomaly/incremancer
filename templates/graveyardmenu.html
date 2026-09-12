@@ -66,7 +66,7 @@
     <button ng-click="zm.trophyTabSelect('totals')" class="{{zm.trophyTab == 'totals' ? 'active' : ''}}">Stat Totals</button>
   </div>
   <div class="upgrades" ng-if="zm.graveyardTab == 'trophies'">
-        <div ng-repeat="trophy in zm.trophies" class="upgrade bones {{trophy.owned ? 'owned' : 'uncollected'}}">
+    <div ng-repeat="trophy in zm.trophies" class="upgrade bones {{trophy.owned ? 'owned' : 'uncollected'}}">
       <label ng-if="zm.trophyTab != 'totals'">Level: {{trophy.level}}<span ng-if="trophy.escaped" class="escaped">VIP Escaped</span></label>
       <label>{{zm.upgradeSubtitle(trophy)}}</label>
     </div>
