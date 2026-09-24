@@ -2069,7 +2069,7 @@ var Incremancer;
                     return this.gameModel.constructions.AdvHybridLab = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);
                 case this.constructionTypes.MiniAssembLine:
                     return this.gameModel.constructions.MiniAssembLine = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);
-                case this.constructionTypes.AdvHybridLab:
+                case this.constructionTypes.TechThinkTank:
                     return this.gameModel.constructions.TechThinkTank = 1, this.gameModel.brainsStorePCMod *= 2, void (this.gameModel.bloodStorePCMod *= 2);
             }
         }
