@@ -3946,7 +3946,7 @@ var Incremancer;
             })), e
         }
         xpTotal() {
-            return (this.xpForItems() - this.xpForAncient - this.xpForDivine - this.xpForChaos)
+            return (this.xpForItems() - this.xpForAncient() - this.xpForDivine() - this.xpForChaos())
         }
     }
     class Ue {
