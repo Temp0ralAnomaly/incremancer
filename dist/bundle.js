@@ -2614,7 +2614,7 @@ var Incremancer;
                                         e < 499 ? 17800 * Math.pow(1.015, e - 84) :
                                             e < 999 ? 85e5 * Math.pow(1.03, e - 499) :
                                                 e < 1499 ? 98e16 * Math.pow(1.021, e - 1499) :
-                                                    e > 2299 ? 845e23 * Math.pow(1.025, e - 2299) :
+                                                    e > 2299 ? 3.93e26 * Math.pow(1.025, e - 2299) :
                                                         4.5e12 * Math.pow(1.025, e - 999)
         }
         getAttackDamage() {
